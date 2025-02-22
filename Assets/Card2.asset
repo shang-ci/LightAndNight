@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b77821fb01f1784e8ee29fe68499b8b, type: 3}
+  m_Name: Card2
+  m_EditorClassIdentifier: 
+  cardName: luchen
+  damage: 20
+  cardSprite: {fileID: -3360476282835404112, guid: 14171a96e5763eb44a4cc6a56bbe42a6, type: 3}
