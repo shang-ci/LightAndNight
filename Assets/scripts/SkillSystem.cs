@@ -19,6 +19,21 @@ public class SkillSystem : MonoBehaviour
     public int strength = 10;
     public int agility = 15;
 }
+
+public class CharacterData : MonoBehaviour
+{
+    public new string name { get; set; }
+    public int hp { get; set; }
+    public int maxHp { get; set; }
+    public int mp { get; set; }
+    public int maxMp { get; set; }
+    public int level { get; set; }
+    public int experience { get; set; }
+    public int nextLevelXP { get; set; }
+    
+    // 经验条计算比例
+    public float GetExperienceRatio() => experience / (float)nextLevelXP;
+}
     
     void Start()
     {
