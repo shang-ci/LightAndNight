@@ -5,7 +5,7 @@ public class CharacterStats : MonoBehaviour
 {
     public class Character : MonoBehaviour
 {
-    public string name = "Player";
+    public new string name = "Player";
     public int currentHP = 100;
     public int maxHP = 100;
     

@@ -32,6 +32,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         countText.text = newItem.count.ToString();
     }
     
+    public void ClearItem()
+    {
+        item = null;
+        icon.sprite = null;
+        countText.text = "";
+    }
+    
     public void OnPointerClick(PointerEventData eventData)
     {
         // 处理物品使用逻辑
