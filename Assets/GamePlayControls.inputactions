@@ -1,0 +1,45 @@
+{
+    "name": "GamePlayControls",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "1ad9f1e2-2ef1-4aac-931a-677e516aa84c",
+            "actions": [
+                {
+                    "name": "ToggleMenu",
+                    "type": "Button",
+                    "id": "8c497cd0-c231-469a-a310-1dc8ee027615",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3e4ea1ba-e7f2-42a1-8f98-f7cca3a3d3f8",
+                    "path": "<XInputController>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "42c88b15-12ff-4cf2-88df-ea2d60c8aa3f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

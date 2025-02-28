@@ -10,11 +10,11 @@ public class AttributeMenuController : MonoBehaviour
     //public ProgressBar experienceBar;
     public Text expText;
     
-    public CharacterData selectedCharacter;
+    public CharacterDataInfo selectedCharacter;
     
-    public void BindCharacter(CharacterData character)
+    public void BindCharacter(CharacterDataInfo characterDataInfo)
     {
-        selectedCharacter = character;
+        selectedCharacter = characterDataInfo;
         UpdateUI();
     }
     

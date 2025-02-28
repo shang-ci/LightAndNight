@@ -122,11 +122,11 @@ public class GameManager : MonoBehaviour
 
             // 攻击 Boss
             selectedBoss.TakeDamage1(selectedCard.card.damage);
-            Debug.Log($"自动使用了 {selectedCard.card.cardName} 对 {selectedBoss.bossName} 造成了 {selectedCard.card.damage} 点伤害。");
+            //Debug.Log($"自动使用了 {selectedCard.card.cardName} 对 {selectedBoss.bossName} 造成了 {selectedCard.card.damage} 点伤害。");
 
-            Debug.Log("gained 10 experiences.");
+            // Debug.Log("gained 10 experiences.");
 
-            Debug.Log("1f属性 -> 1.2f属性");
+            // Debug.Log("1f属性 -> 1.2f属性");
         }
     }
 
