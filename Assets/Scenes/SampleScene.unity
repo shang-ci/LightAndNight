@@ -1939,6 +1939,7 @@ MonoBehaviour:
   bosses:
   - {fileID: 1540810407}
   isAutoMode: 0
+  _experience: 0
   cards1:
   - {fileID: 11400000, guid: 85e6c94e727dd484392dfe9c0fb618e6, type: 2}
   - {fileID: 11400000, guid: 5694fbd88f1bffe4faf1a0cc3385de1f, type: 2}
@@ -3327,7 +3328,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 62.8
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3686,6 +3687,7 @@ GameObject:
   - component: {fileID: 1117678548}
   - component: {fileID: 1117678550}
   - component: {fileID: 1117678549}
+  - component: {fileID: 1117678551}
   m_Layer: 5
   m_Name: MP
   m_TagString: Untagged
@@ -3733,7 +3735,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MP:50/50
+  m_text: MP:0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3812,6 +3814,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117678547}
   m_CullTransparentMesh: 1
+--- !u!114 &1117678551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117678547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa75ccba0c8ff2a408feb1cd1ea17a7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expText: {fileID: 1117678549}
+  updateSpeed: 50
 --- !u!1 &1140153348
 GameObject:
   m_ObjectHideFlags: 0
@@ -4658,6 +4674,7 @@ GameObject:
   - component: {fileID: 1540810408}
   - component: {fileID: 1540810407}
   - component: {fileID: 1540810406}
+  - component: {fileID: 1540810410}
   m_Layer: 5
   m_Name: boss1
   m_TagString: boss
@@ -4786,6 +4803,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540810404}
   m_CullTransparentMesh: 1
+--- !u!114 &1540810410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540810404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c8b16b7761846940b56315b6cc3835b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossMaxHP: 100
+  experienceReward: 10
 --- !u!1 &1601009421
 GameObject:
   m_ObjectHideFlags: 0

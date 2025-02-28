@@ -14,7 +14,7 @@ public class Boss1 : MonoBehaviour
     public bool isDead; // 是否死亡
     private void Start()
     {
-        hp = 80;
+        hp = 0;
         if (healthBar != null)
         {
             healthBar.maxValue = maxHp;
@@ -33,10 +33,16 @@ public class Boss1 : MonoBehaviour
         }
     }
 
+    //新添加class控制多个角色的经验值获得
+
     void Die()
     {
+        isDead = true;
         // 增加经验值
+        //判断是否都进行攻击，如果都进行攻击则增加经验值
         MenuManager.Instance.AddExperience(10);
+
+        MenuManager.Instance1.AddExperience(8);
 
         Debug.Log("You gain 10 exp.");
         // 销毁 Boss 对象

@@ -39,7 +39,7 @@ public class MenuController : MonoBehaviour
 
     void OnDisable()
     {
-        inputActions.UI.Disable(); // 禁用UI Action Map
+         inputActions.UI.Disable(); // 禁用UI Action Map
     }
 
     public void ToggleMenu()

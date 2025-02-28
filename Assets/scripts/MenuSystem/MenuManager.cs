@@ -4,6 +4,8 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance; // 单例
 
+    public static MenuManager Instance1;
+
     private int experience = 0;
 
     void Awake()
