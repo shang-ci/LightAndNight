@@ -81,43 +81,6 @@ public class GameManager : MonoBehaviour
         _experience = 0;
     }
 
-    // private IEnumerator AutoAttack()
-    // {
-    //     while (true)
-    //     {
-    //         yield return new WaitForSeconds(2f); // 每 2 秒攻击一次
-
-    //         // 随机选择一张卡牌和一个 Boss
-    //         CardUI selectedCard = cardUIs[Random.Range(0, cardUIs.Length)];
-    //         Boss1 selectedBoss = bosses[Random.Range(0, bosses.Length)];
-
-    //         // 攻击 Boss
-    //         selectedBoss.TakeDamage1(selectedCard.card.damage);
-    //         Debug.Log($"自动使用了 {selectedCard.card.cardName} 对 {selectedBoss.bossName} 造成了 {selectedCard.card.damage} 点伤害。");
-    //     }
-    // }
-
-
-    // private IEnumerator AutoAttack()
-    // {
-    //     Debug.Log("AutoAttack started.");
-    //     while (true)
-    //     {
-    //         yield return new WaitForSeconds(2f); // 每 2 秒攻击一次
-
-    //         // 打印当前时间戳
-    //         //Debug.Log($"AutoAttack executed at: {Time.time}");
-
-    //         // 随机选择一张卡牌和一个 Boss
-    //         CardUI selectedCard = cardUIs[Random.Range(0, cardUIs.Length)];
-    //         Boss1 selectedBoss = bosses[Random.Range(0, bosses.Length)];
-
-    //         // 攻击 Boss
-    //         selectedBoss.TakeDamage1(selectedCard.card.damage);
-    //         Debug.Log($"自动使用了 {selectedCard.card.cardName} 对 {selectedBoss.bossName} 造成了 {selectedCard.card.damage} 点伤害。");
-    //     }
-    // }
-
     private IEnumerator AutoAttack()
     {
         Debug.Log("AutoAttack started.");

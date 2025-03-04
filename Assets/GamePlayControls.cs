@@ -35,6 +35,15 @@ public partial class @GamePlayControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ToggleDetail"",
+                    ""type"": ""Button"",
+                    ""id"": ""50659ed0-305b-4ff4-8436-67399bea8a95"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -59,6 +68,28 @@ public partial class @GamePlayControls: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a9b7fd57-813c-48e1-af60-0e1db8c9be65"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleDetail"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e822587-078c-403e-9895-ee5224b09cb1"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleDetail"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -68,6 +99,7 @@ public partial class @GamePlayControls: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_ToggleMenu = m_UI.FindAction("ToggleMenu", throwIfNotFound: true);
+        m_UI_ToggleDetail = m_UI.FindAction("ToggleDetail", throwIfNotFound: true);
     }
 
     ~@GamePlayControls()
@@ -135,11 +167,13 @@ public partial class @GamePlayControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_ToggleMenu;
+    private readonly InputAction m_UI_ToggleDetail;
     public struct UIActions
     {
         private @GamePlayControls m_Wrapper;
         public UIActions(@GamePlayControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @ToggleMenu => m_Wrapper.m_UI_ToggleMenu;
+        public InputAction @ToggleDetail => m_Wrapper.m_UI_ToggleDetail;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -152,6 +186,9 @@ public partial class @GamePlayControls: IInputActionCollection2, IDisposable
             @ToggleMenu.started += instance.OnToggleMenu;
             @ToggleMenu.performed += instance.OnToggleMenu;
             @ToggleMenu.canceled += instance.OnToggleMenu;
+            @ToggleDetail.started += instance.OnToggleDetail;
+            @ToggleDetail.performed += instance.OnToggleDetail;
+            @ToggleDetail.canceled += instance.OnToggleDetail;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -159,6 +196,9 @@ public partial class @GamePlayControls: IInputActionCollection2, IDisposable
             @ToggleMenu.started -= instance.OnToggleMenu;
             @ToggleMenu.performed -= instance.OnToggleMenu;
             @ToggleMenu.canceled -= instance.OnToggleMenu;
+            @ToggleDetail.started -= instance.OnToggleDetail;
+            @ToggleDetail.performed -= instance.OnToggleDetail;
+            @ToggleDetail.canceled -= instance.OnToggleDetail;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -179,5 +219,6 @@ public partial class @GamePlayControls: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnToggleMenu(InputAction.CallbackContext context);
+        void OnToggleDetail(InputAction.CallbackContext context);
     }
 }

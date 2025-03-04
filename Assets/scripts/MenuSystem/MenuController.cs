@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 public class MenuController : MonoBehaviour
 {
     public GameObject menuPanel;
+
+    public GameObject detailPanel;
+
     private GamePlayControls inputActions;
 
     public TextMeshProUGUI expText; // 经验值文本
@@ -13,17 +16,24 @@ public class MenuController : MonoBehaviour
     {
         // 初始化输入系统
         inputActions = new GamePlayControls();
-        // 绑定ToggleMenu事件
-        inputActions.UI.ToggleMenu.performed += ctx => ToggleMenu();
+
+      // 绑定两个动作到对应方法
+        inputActions.UI.ToggleMenu.performed += _ => ToggleMenu();
+        inputActions.UI.ToggleDetail.performed += _ => ToggleDetail();
     }
 
     void Update()
     {
         // 检测键盘（Esc）和手柄（Start键，通常是JoystickButton7）
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7))
-        {
-            ToggleMenu();
-        }
+        // if (Input.GetKeyDown(KeyCode.Escape)|| Input.GetKeyDown(KeyCode.JoystickButton7))
+        // {
+        //     ToggleMenu();
+        // }
+
+        // if (Input.GetKeyDown(KeyCode.Tab)|| Input.GetKeyDown(KeyCode.JoystickButton2))
+        // {
+        //     ToggleDetail();
+        // }
 
         // 更新经验值显示（仅在菜单打开时更新）
         if (menuPanel.activeSelf)
@@ -31,7 +41,7 @@ public class MenuController : MonoBehaviour
             expText.text = "MP: " + MenuManager.Instance.GetExperience();
         }
     }
-
+    
     void OnEnable()
     {
         inputActions.UI.Enable(); // 启用UI Action Map
@@ -46,6 +56,12 @@ public class MenuController : MonoBehaviour
     {
         menuPanel.SetActive(!menuPanel.activeSelf);
         //Debug.Log("菜单状态: " + menuPanel.activeSelf);
+    }
+
+    public void ToggleDetail()
+    {
+        detailPanel.SetActive(!detailPanel.activeSelf);
+        //Debug.Log("版面状态: " + detailPanel.activeSelf);
     }
 }
 // using TMPro;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class BossBattleController : MonoBehaviour
@@ -6,8 +7,10 @@ public class BossBattleController : MonoBehaviour
     [Header("战斗配置")]
     [SerializeField] private int bossMaxHP = 100;
     [SerializeField] private int experienceReward = 10;
-    
+
     private int _currentBossHP;
+
+    //private bool _isDefeated; // 新增状态标志
 
     void Start()
     {
@@ -17,15 +20,21 @@ public class BossBattleController : MonoBehaviour
     private void InitializeBattle()
     {
         _currentBossHP = bossMaxHP;
+
+        //_isDefeated = false; // 重置状态
+
         Debug.Log("Boss战开始！");
     }
 
     public void TakeDamage(int damage)
     {
+        //if (_isDefeated) return; // 已死亡不再响应伤害
+
         _currentBossHP = Mathf.Max(0, _currentBossHP - damage);
-        
-        if (_currentBossHP <= 0)
+
+        if (_currentBossHP > -1000)
         {
+            //_isDefeated = true; // 标记为已死亡
             OnBossDefeated();
         }
     }
@@ -33,8 +42,8 @@ public class BossBattleController : MonoBehaviour
     private void OnBossDefeated()
     {
         // 发放经验奖励
-        MenuManager.Instance.AddExperience(experienceReward);
-        
+        MenuManager.Instance.AddExperience(10);
+
         // 延迟20秒后重启战斗
         Debug.Log("Boss已被击败，20秒后重启战斗。");
         Invoke(nameof(RestartBattle), 20f);
@@ -43,18 +52,16 @@ public class BossBattleController : MonoBehaviour
         //可随意设置条件进行战斗
     }
 
+
     private void RestartBattle()
     {
         // 方案1：重新加载场景（适合完全重置）
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        
+
         // 方案2：软重启（更高效）
-        InitializeBattle();
-        FindFirstObjectByType<PlayerHand>().ResetHand(); // 重置玩家手牌
-       // 方案2：软重启（更高效）
         Debug.Log("重启战斗。");
         InitializeBattle();
-        FindFirstObjectByType<PlayerHand>().ResetHand(); // 重置玩家手牌
+        //FindFirstObjectByType<PlayerHand>().ResetHand(); // 重置玩家手牌
         //GetComponent<BossVisuals>().PlayRespawnAnimation(); // Boss重生动画
     }
 }
