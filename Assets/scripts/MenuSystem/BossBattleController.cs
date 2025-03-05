@@ -8,6 +8,8 @@ public class BossBattleController : MonoBehaviour
     [SerializeField] private int bossMaxHP = 100;
     [SerializeField] private int experienceReward = 10;
 
+    [SerializeField] private int experienceReward1 = 5;
+
     private int _currentBossHP;
 
     //private bool _isDefeated; // 新增状态标志
@@ -42,11 +44,14 @@ public class BossBattleController : MonoBehaviour
     private void OnBossDefeated()
     {
         // 发放经验奖励
-        MenuManager.Instance.AddExperience(10);
+        MenuManager.Instance.AddExperienceToPlayer1(experienceReward);
+
+        MenuManager.Instance.AddExperienceToPlayer2(experienceReward1);
 
         // 延迟20秒后重启战斗
-        Debug.Log("Boss已被击败，20秒后重启战斗。");
-        Invoke(nameof(RestartBattle), 20f);
+        // Debug.Log("Boss已被击败，20秒后重启战斗。");
+
+        // Invoke(nameof(RestartBattle), 20f);
 
         // 可以在这里添加其他逻辑，比如播放胜利动画、解锁新卡牌等
         //可随意设置条件进行战斗

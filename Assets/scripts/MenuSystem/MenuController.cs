@@ -12,12 +12,18 @@ public class MenuController : MonoBehaviour
 
     public TextMeshProUGUI expText; // 经验值文本
 
+    public TextMeshProUGUI expText1; // 经验值文本
+
+    public TextMeshProUGUI nameText;
+
+    public TextMeshProUGUI nameText1;
+
     void Awake()
     {
         // 初始化输入系统
         inputActions = new GamePlayControls();
 
-      // 绑定两个动作到对应方法
+        // 绑定两个动作到对应方法
         inputActions.UI.ToggleMenu.performed += _ => ToggleMenu();
         inputActions.UI.ToggleDetail.performed += _ => ToggleDetail();
     }
@@ -25,23 +31,30 @@ public class MenuController : MonoBehaviour
     void Update()
     {
         // 检测键盘（Esc）和手柄（Start键，通常是JoystickButton7）
-        // if (Input.GetKeyDown(KeyCode.Escape)|| Input.GetKeyDown(KeyCode.JoystickButton7))
-        // {
-        //     ToggleMenu();
-        // }
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton7))
+        {
+            ToggleMenu();
+        }
 
-        // if (Input.GetKeyDown(KeyCode.Tab)|| Input.GetKeyDown(KeyCode.JoystickButton2))
-        // {
-        //     ToggleDetail();
-        // }
+        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.JoystickButton2))
+        {
+            ToggleDetail();
+        }
 
         // 更新经验值显示（仅在菜单打开时更新）
         if (menuPanel.activeSelf)
         {
-            expText.text = "MP: " + MenuManager.Instance.GetExperience();
+            expText.text = "Exp: " + MenuManager.Instance.GetPlayer1Experience(); // 使用 Instance
+            
+            expText1.text = "Exp: " + MenuManager.Instance.GetPlayer2Experience(); // 使用 Instance
+
+
+            nameText.text = "Character Name: " + "Evan";
+
+            nameText1.text = "Character Name: " + "Osborn";
         }
     }
-    
+
     void OnEnable()
     {
         inputActions.UI.Enable(); // 启用UI Action Map
@@ -49,7 +62,7 @@ public class MenuController : MonoBehaviour
 
     void OnDisable()
     {
-         inputActions.UI.Disable(); // 禁用UI Action Map
+        inputActions.UI.Disable(); // 禁用UI Action Map
     }
 
     public void ToggleMenu()

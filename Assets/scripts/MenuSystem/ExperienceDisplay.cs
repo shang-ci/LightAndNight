@@ -5,6 +5,9 @@ using UnityEngine.UI;
 public class ExperienceDisplay : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI expText;
+
+    [SerializeField] private TextMeshProUGUI expText1;
+
     [SerializeField] private float updateSpeed = 0.5f;
 
     private float _updateTimer;
@@ -13,7 +16,10 @@ public class ExperienceDisplay : MonoBehaviour
     {
         if (Time.time > _updateTimer)
         {
-            expText.text = $"exp: {GameManager.Instance.CurrentExperience}";
+            expText.text = $"exp: {MenuManager.Instance.player1Experience}";
+
+            expText1.text = $"exp: {MenuManager.Instance.player2Experience}";
+
             _updateTimer = Time.time + updateSpeed;
         }
     }

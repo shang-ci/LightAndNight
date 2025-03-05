@@ -40,11 +40,13 @@ public class Boss1 : MonoBehaviour
         isDead = true;
         // 增加经验值
         //判断是否都进行攻击，如果都进行攻击则增加经验值
-        MenuManager.Instance.AddExperience(10);
+        MenuManager.Instance.AddExperienceToPlayer1(10);
 
-        //MenuManager.Instance1.AddExperience(8);
+        MenuManager.Instance.AddExperienceToPlayer2(5);
 
-        Debug.Log("You gain 10 exp.");
+        Debug.Log("Osborn gain 5 exp.");
+
+        Debug.Log("Evan gain 10 exp.");
         // 销毁 Boss 对象
         Destroy(gameObject);
     }
@@ -80,7 +82,10 @@ public class Boss1 : MonoBehaviour
     }
     public void BossDefeated()
     {
-        MenuManager.Instance.AddExperience(10);
+        MenuManager.Instance.AddExperienceToPlayer1(10);
+
+        MenuManager.Instance.AddExperienceToPlayer2(5);
+
         Destroy(gameObject); // 或其他处理
     }
 
