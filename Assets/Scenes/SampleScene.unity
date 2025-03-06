@@ -171,6 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expText: {fileID: 1117678549}
   expText1: {fileID: 41798839}
+  levelText: {fileID: 1022449052}
+  levelText1: {fileID: 1962667081}
   updateSpeed: 50
 --- !u!114 &41798839
 MonoBehaviour:
@@ -219,8 +221,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -257,7 +259,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 352.86194, y: 102.48047, z: -363.01428, w: -149.30151}
+  m_margin: {x: 454.76007, y: 102.48047, z: -363.01428, w: -149.30151}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -691,6 +693,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5ef01acd5237440acfa4c5db156392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1Experience: 0
+  player2Experience: 0
+  player1Level: 1
+  player2Level: 1
 --- !u!4 &137358153
 Transform:
   m_ObjectHideFlags: 0
@@ -958,7 +964,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -990,7 +996,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 348.66272, y: -213.14575, z: -773.5958, w: -227.68484}
+  m_margin: {x: 354.0257, y: -213.14575, z: -773.5958, w: -227.68484}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1885,6 +1891,7 @@ GameObject:
   - component: {fileID: 652020524}
   - component: {fileID: 652020526}
   - component: {fileID: 652020527}
+  - component: {fileID: 652020528}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1967,7 +1974,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expText: {fileID: 1117678549}
   expText1: {fileID: 41798839}
+  levelText: {fileID: 1022449052}
+  levelText1: {fileID: 1962667081}
   updateSpeed: 0.5
+--- !u!114 &652020528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652020523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9b6cb446f7efa429449e32988ac6ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &668089355
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,8 +2224,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2269,6 +2290,8 @@ GameObject:
   - component: {fileID: 745056463}
   - component: {fileID: 745056467}
   - component: {fileID: 745056468}
+  - component: {fileID: 745056469}
+  - component: {fileID: 745056470}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2379,11 +2402,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuPanel: {fileID: 1361138735}
-  detailPanel: {fileID: 1176371772}
   expText: {fileID: 1117678549}
   expText1: {fileID: 41798839}
   nameText: {fileID: 1850733167}
   nameText1: {fileID: 222727099}
+  levelText: {fileID: 1022449052}
+  levelText1: {fileID: 1962667081}
 --- !u!114 &745056468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2396,12 +2420,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52eca8cb34d16414ba89688ac6535a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributesButton: {fileID: 1265779846}
+  cardsButton: {fileID: 1265779846}
   skillsButton: {fileID: 1881990738}
   inventoryButton: {fileID: 1769196957}
-  attributesPanel: {fileID: 2064748789}
+  cardsPanel: {fileID: 2064748789}
   skillsPanel: {fileID: 328480486}
   inventoryPanel: {fileID: 1714891007}
+--- !u!114 &745056469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745056462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 175a193d2456a4041abbc24eb8cea1ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detailPanel: {fileID: 1176371772}
+--- !u!114 &745056470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745056462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab1cf8850eef854984908c17dd6fa5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1Level: 1
+  player2Level: 1
 --- !u!1 &755943651
 GameObject:
   m_ObjectHideFlags: 0
@@ -3139,7 +3190,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: inspector
+  m_text: card
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3275,7 +3326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level:1
+  m_text: level:0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3302,8 +3353,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3340,7 +3391,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -240.50452, y: 250.37878, z: 2.774414, w: -261.85065}
+  m_margin: {x: -248.54913, y: 271.831, z: 2.774414, w: -261.85065}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3626,8 +3677,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3692,6 +3743,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expText: {fileID: 1117678549}
   expText1: {fileID: 41798839}
+  levelText: {fileID: 1022449052}
+  levelText1: {fileID: 1962667081}
   updateSpeed: 50
 --- !u!1 &1122047642
 GameObject:
@@ -4136,7 +4189,7 @@ GameObject:
   - component: {fileID: 1265779847}
   - component: {fileID: 1265779846}
   m_Layer: 5
-  m_Name: AtrributesButton
+  m_Name: CardsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6003,7 +6056,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -6035,7 +6088,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -244.81085, y: -213.14575, z: -361.13928, w: -227.68488}
+  m_margin: {x: -346.70898, y: -213.14575, z: -361.13928, w: -227.68488}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6228,7 +6281,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HP:100/100
+  m_text: HP:80/80
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6255,8 +6308,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6293,7 +6346,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 345.3968, y: -69.99786, z: 2.774414, w: 0}
+  m_margin: {x: 452.65808, y: -69.99786, z: 2.774414, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6364,7 +6417,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level:1
+  m_text: level:0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6391,8 +6444,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6429,7 +6482,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 352.96912, y: 250.37878, z: -504.85083, w: -343.9665}
+  m_margin: {x: 452.18573, y: 274.51254, z: -504.85083, w: -343.9665}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6667,7 +6720,7 @@ GameObject:
   - component: {fileID: 2064748792}
   - component: {fileID: 2064748791}
   m_Layer: 5
-  m_Name: AtrributesPanel
+  m_Name: CardsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -14,8 +14,16 @@ public class BossBattleController : MonoBehaviour
 
     //private bool _isDefeated; // 新增状态标志
 
+    private ExperienceRewardManager experienceRewardManager; // 新增引用
+
     void Start()
     {
+        experienceRewardManager = FindFirstObjectByType<ExperienceRewardManager>(); // 查找 ExperienceRewardManager 脚本实例
+        if (experienceRewardManager == null)
+        {
+            Debug.LogError("ExperienceRewardManager not found in the scene!");
+        }
+
         InitializeBattle();
     }
 
@@ -44,10 +52,11 @@ public class BossBattleController : MonoBehaviour
     private void OnBossDefeated()
     {
         // 发放经验奖励
-        MenuManager.Instance.AddExperienceToPlayer1(experienceReward);
+        // MenuManager.Instance.AddExperienceToPlayer1(experienceReward);
 
-        MenuManager.Instance.AddExperienceToPlayer2(experienceReward1);
+        // MenuManager.Instance.AddExperienceToPlayer2(experienceReward1);
 
+        experienceRewardManager.RewardExperience(experienceReward, experienceReward1); // 为两个玩家分配经验
         // 延迟20秒后重启战斗
         // Debug.Log("Boss已被击败，20秒后重启战斗。");
 

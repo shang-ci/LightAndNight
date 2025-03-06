@@ -12,8 +12,22 @@ public class Boss1 : MonoBehaviour
 
     public int health = 100; // 生命值
     public bool isDead; // 是否死亡
+
+    private ExperienceRewardManager experienceRewardManager; // 新增引用
     private void Start()
     {
+        experienceRewardManager = Object.FindFirstObjectByType<ExperienceRewardManager>(); // 查找 ExperienceRewardManager 脚本实例
+
+        if (experienceRewardManager == null)
+        {
+            Debug.LogError("ExperienceRewardManager not found in the scene!");
+        }
+        
+        if (health <= 0)
+        {
+            Die();
+        }
+
         hp = 0;
         if (healthBar != null)
         {
@@ -40,9 +54,11 @@ public class Boss1 : MonoBehaviour
         isDead = true;
         // 增加经验值
         //判断是否都进行攻击，如果都进行攻击则增加经验值
-        MenuManager.Instance.AddExperienceToPlayer1(10);
+        // MenuManager.Instance.AddExperienceToPlayer1(10);
 
-        MenuManager.Instance.AddExperienceToPlayer2(5);
+        // MenuManager.Instance.AddExperienceToPlayer2(5);
+
+        experienceRewardManager.RewardExperience(10, 5); // 为两个玩家分配经验
 
         Debug.Log("Osborn gain 5 exp.");
 
