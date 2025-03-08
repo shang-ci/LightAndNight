@@ -10,8 +10,8 @@ public class MenuManager : MonoBehaviour
 
     public static MenuManager Instance;
 
-    public int player1Experience = 100;
-    public int player2Experience = 0;
+    public int player1Experience;
+    public int player2Experience;
 
     public int player1Level = 0; // 玩家1的等级
 
@@ -69,35 +69,5 @@ void Awake()
     {
         return player2Experience;
     }
-
-    // 获取玩家1的等级
-    public int GetPlayer1Level()
-    {
-        return player1Level;
-    }
-
-    // 获取玩家2的等级
-    public int GetPlayer2Level()
-    {
-        return player2Level;
-    }
-
-
-    // public void UpdatePlayerLevel()
-    // {
-    //     // You can implement level UI updates here
-    // }
-
-    // 增加经验值的方法
-    // public void AddExperience(int amount)
-    // {
-    //     experience += amount;
-    //     Debug.Log("当前经验值: " + experience);
-    // }
-
-    // // 获取当前经验值
-    // public int GetExperience()
-    // {
-    //     return experience;
-    // }
+    
 }

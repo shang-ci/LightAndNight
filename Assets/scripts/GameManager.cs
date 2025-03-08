@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public Boss1[] bosses; // Boss 数组
     public bool isAutoMode = false; // 是否为自动模式
 
+    public static GameManager Instance;
+
+    public static GameManager Instance1;
 
     [SerializeField]
     private int _experience; // 序列化字段用于编辑器调试
@@ -45,8 +48,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log($"卡牌名称: {card.cardName}, 伤害值: {card.damage}");
         }
-
-        
     }
 
     private void InitializeCards()
@@ -57,6 +58,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // 跨场景保留
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        // Ensure Instance1 is set correctly
+        if (Instance1 == null)
+        {
+            Instance1 = this; // or set it to another instance if needed
+        }
+    }
 
     // public void AddExperience(int amount)
     // {

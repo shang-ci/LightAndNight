@@ -52,8 +52,9 @@ public class MenuController : MonoBehaviour
         {
             ToggleMenu();
         }
-        levelManager.GetLevel1Experience(ref MenuManager.Instance.player1Experience, ref levelManager.player1Level, LevelManager.EXP_PER_LEVEL1);
-        levelManager.GetLevel2Experience(ref MenuManager.Instance.player2Experience, ref levelManager.player2Level, LevelManager.EXP_PER_LEVEL2);
+
+        int player1Level = levelManager.GetLevel1Experience(MenuManager.Instance.player1Experience, levelManager.player1Level, levelManager.expperlevel1);
+        int player2Level = levelManager.GetLevel2Experience(MenuManager.Instance.player2Experience, levelManager.player2Level, levelManager.expperlevel2);
 
         // 更新经验值显示（仅在菜单打开时更新）
         if (menuPanel.activeSelf)
@@ -66,9 +67,11 @@ public class MenuController : MonoBehaviour
 
             nameText1.text = "Character Name: " + "Evan";
 
-            levelText.text = "Level: " + MenuManager.Instance.GetPlayer1Level(); // 使用 Instance
+            levelText.text = "Level: " + player1Level; // 使用计算出的等级
 
-            levelText1.text = "Level: " + MenuManager.Instance.GetPlayer2Level(); // 使用 Instance
+            levelText1.text = "Level: " + player2Level; // 使用计算出的等级
+
+            Debug.Log("已更新level值");
         }
     }
 

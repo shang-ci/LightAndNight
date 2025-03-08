@@ -83,7 +83,7 @@ public partial class @GamePlayControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0e822587-078c-403e-9895-ee5224b09cb1"",
-                    ""path"": ""<XInputController>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
