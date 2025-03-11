@@ -1,3 +1,17 @@
+/* 
+功能:
+控制Boss战斗的逻辑，包括Boss的生命值和经验奖励。
+
+挂载对象:
+应该挂载在一个管理Boss战斗的对象上，例如 BossManager。
+
+重要变量:
+bossMaxHP: Boss的最大生命值。
+experienceReward, experienceReward1: 击败Boss后玩家获得的经验值。
+_currentBossHP: Boss当前的生命值。
+experienceRewardManager: 引用经验奖励管理器的实例。
+ */
+
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -5,10 +19,10 @@ using UnityEngine.SceneManagement;
 public class BossBattleController : MonoBehaviour
 {
     [Header("战斗配置")]
-    [SerializeField] private int bossMaxHP = 100;
-    [SerializeField] private int experienceReward = 10;
+    [SerializeField] private int bossMaxHP;
+    [SerializeField] private int experienceReward;
 
-    [SerializeField] private int experienceReward1 = 5;
+    [SerializeField] private int experienceReward1;
 
     private int _currentBossHP;
 
@@ -51,12 +65,8 @@ public class BossBattleController : MonoBehaviour
 
     private void OnBossDefeated()
     {
-        // 发放经验奖励
-        // MenuManager.Instance.AddExperienceToPlayer1(experienceReward);
-
-        // MenuManager.Instance.AddExperienceToPlayer2(experienceReward1);
-
-        experienceRewardManager.RewardExperience(experienceReward, experienceReward1); // 为两个玩家分配经验
+        int[] playerExp = { experienceReward, experienceReward1 };
+        experienceRewardManager.RewardExperience(playerExp); // 为两个玩家分配经验
         // 延迟20秒后重启战斗
         // Debug.Log("Boss已被击败，20秒后重启战斗。");
 

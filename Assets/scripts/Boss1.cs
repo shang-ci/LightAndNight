@@ -13,6 +13,8 @@ public class Boss1 : MonoBehaviour
     public int health = 100; // 生命值
     public bool isDead; // 是否死亡
 
+    public int[]playerExp= new int[2];
+
     private ExperienceRewardManager experienceRewardManager; // 新增引用
     private void Start()
     {
@@ -52,16 +54,10 @@ public class Boss1 : MonoBehaviour
     void Die()
     {
         isDead = true;
-        // 增加经验值
-        //判断是否都进行攻击，如果都进行攻击则增加经验值
-        // MenuManager.Instance.AddExperienceToPlayer1(10);
-
-        // MenuManager.Instance.AddExperienceToPlayer2(5);
-
-        experienceRewardManager.RewardExperience(10, 5); // 为两个玩家分配经验
+        int[] playerExp = { 10, 5 };
+        experienceRewardManager.RewardExperience(playerExp); // 为两个玩家分配经验
 
         Debug.Log("Osborn gain 5 exp.");
-
         Debug.Log("Evan gain 10 exp.");
         // 销毁 Boss 对象
         Destroy(gameObject);
@@ -96,14 +92,7 @@ public class Boss1 : MonoBehaviour
             //Debug.Log($"{bossName} is dead.");
         }
     }
-    public void BossDefeated()
-    {
-        MenuManager.Instance.AddExperienceToPlayer1(10);
-
-        MenuManager.Instance.AddExperienceToPlayer2(5);
-
-        Destroy(gameObject); // 或其他处理
-    }
+ 
 
 
 

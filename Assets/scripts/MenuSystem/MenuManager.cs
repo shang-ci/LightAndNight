@@ -1,41 +1,28 @@
+/* 
+功能:
+管理玩家的经验值和等级。
+
+挂载对象:
+应该挂载在一个全局管理对象上，例如 GameManager。
+
+重要变量:
+playerExperience: 存储每个玩家的经验值。
+playerLevel: 存储每个玩家的等级。
+expperlevel: 存储每个等级所需的经验值。
+ */
+
 using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    // public static MenuManager player1;
-
-    // public static MenuManager player2;
-
-    // private int experience = 0;
-
     public static MenuManager Instance;
 
-    public int player1Experience;
-    public int player2Experience;
+    public int[] playerExperience = new int[100];
+    public int[] playerLevel = new int[100];
 
-    public int player1Level = 0; // 玩家1的等级
+    public int[] expperlevel = new int[100];
 
-    public int player2Level = 0; // 玩家2的等级
-
-//     void Awake()
-// {
-//     if (player1 == null)
-//     {
-//         player1 = this;
-//         DontDestroyOnLoad(gameObject); // 跨场景保留
-//     }
-//     else if (player2 == null)
-//     {
-//         player2 = this; // 这里确保 player2 是另一个实例
-//         DontDestroyOnLoad(gameObject); // 跨场景保留
-//     }
-//     else
-//     {
-//         Destroy(gameObject);
-//     }
-//}
-
-void Awake()
+    void Awake()
     {
         if (Instance == null)
         {
@@ -48,26 +35,24 @@ void Awake()
         }
     }
 
-    public void AddExperienceToPlayer1(int amount)
+    public void AddExperienceToPlayer(int playerIndex, int amount)
     {
-        player1Experience += amount;
-        Debug.Log("Player 1 当前经验值: " + player1Experience);
+        if (playerIndex < 0 || playerIndex >= playerExperience.Length)
+        {
+            Debug.LogError("Invalid player index");
+            return;
+        }
+        playerExperience[playerIndex] += amount;
+        Debug.Log($"Player {playerIndex + 1} 当前经验值: " + playerExperience[playerIndex]);
     }
 
-    public void AddExperienceToPlayer2(int amount)
+    public int GetPlayerExperience(int playerIndex)
     {
-        player2Experience += amount;
-        Debug.Log("Player 2 当前经验值: " + player2Experience);
+        if (playerIndex < 0 || playerIndex >= playerExperience.Length)
+        {
+            Debug.LogError("Invalid player index");
+            return 0;
+        }
+        return playerExperience[playerIndex];
     }
-
-    public int GetPlayer1Experience()
-    {
-        return player1Experience;
-    }
-
-    public int GetPlayer2Experience()
-    {
-        return player2Experience;
-    }
-    
 }

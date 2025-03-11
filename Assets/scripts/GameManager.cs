@@ -1,3 +1,17 @@
+/* 
+功能:
+管理游戏的整体逻辑，包括卡牌初始化和自动攻击。
+
+挂载对象:
+应该挂载在一个全局管理对象上，例如 GameManager。
+
+重要变量:
+cards, cardUIs: 存储卡牌和卡牌UI的数组。
+bosses: 存储Boss的数组。
+isAutoMode: 是否为自动模式的标志。
+_experience: 存储当前经验值的变量。
+ */
+ 
 using System.Collections;
 using UnityEngine;
 

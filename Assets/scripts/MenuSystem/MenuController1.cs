@@ -1,3 +1,16 @@
+/* 
+功能:
+控制详细信息面板的显示和隐藏。
+
+挂载对象:
+应该挂载在一个管理详细信息面板的对象上，例如 DetailManager。
+
+重要变量:
+detailPanel: 详细信息面板的游戏对象。
+inputActions: 用于处理输入的控制对象。
+_isProcessingInput: 防止输入重复处理的标志。
+ */
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
