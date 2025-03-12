@@ -85,8 +85,8 @@ public class MenuController : MonoBehaviour
             levelText.text = "Level: " + LevelManager.Instance.player1Level; // 使用计算出的等级
             levelText1.text = "Level: " + LevelManager.Instance.player2Level; // 使用计算出的等级
 
-            // Debug.Log($"已更新level值: {levelText.text}");
-            // Debug.Log($"已更新level值: {levelText1.text}");
+            Debug.Log($"已更新level值: {levelText.text}");
+            Debug.Log($"已更新level值: {levelText1.text}");
             //数值错误
 
             // Debug.Log($"player1的等级(menu controller):{LevelManager.Instance.player1Level}");

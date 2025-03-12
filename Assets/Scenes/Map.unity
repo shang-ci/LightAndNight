@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 1139615697}
   - component: {fileID: 1139615701}
   - component: {fileID: 1139615700}
+  - component: {fileID: 1139615702}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -267,6 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  boundDistance: 60
 --- !u!50 &1139615701
 Rigidbody2D:
   serializedVersion: 4
@@ -294,6 +296,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &1139615702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139615696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ead5454300147e7498ee51191409c6d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDistance: 500
+  targetSceneName: SampleScene
+  pixelDistance: 0
+  hasTriggered: 0
 --- !u!1 &1332131741
 GameObject:
   m_ObjectHideFlags: 0
