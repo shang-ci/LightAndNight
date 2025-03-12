@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - boss
+  - SampleSceneCanvas
   layers:
   - Default
   - TransparentFX

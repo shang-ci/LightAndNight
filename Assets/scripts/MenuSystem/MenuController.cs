@@ -79,14 +79,14 @@ public class MenuController : MonoBehaviour
             expText.text = "Exp: " + MenuManager.Instance.playerExperience[0]; // 使用 Instance
             expText1.text = "Exp: " + MenuManager.Instance.playerExperience[1]; // 使用 Instance
 
-            nameText.text = "Character Name: " + "Osborn";
-            nameText1.text = "Character Name: " + "Evan";
+            nameText.text = "Character Name: " + MenuManager.Instance.playerName[0]; // 使用 Instance
+            nameText1.text = "Character Name: " + MenuManager.Instance.playerName[1]; // 使用 Instance
 
             levelText.text = "Level: " + LevelManager.Instance.player1Level; // 使用计算出的等级
             levelText1.text = "Level: " + LevelManager.Instance.player2Level; // 使用计算出的等级
 
-            Debug.Log($"已更新level值: {levelText.text}");
-            Debug.Log($"已更新level值: {levelText1.text}");
+            // Debug.Log($"已更新level值: {levelText.text}");
+            // Debug.Log($"已更新level值: {levelText1.text}");
             //数值错误
 
             // Debug.Log($"player1的等级(menu controller):{LevelManager.Instance.player1Level}");

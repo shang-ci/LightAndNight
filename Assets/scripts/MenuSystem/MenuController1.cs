@@ -36,10 +36,10 @@ public class MenuController1 : MonoBehaviour
     void Update()
     {
         // 使用新输入系统的 Keyboard 类
-        if (Keyboard.current.tabKey.wasPressedThisFrame || Gamepad.current.buttonSouth.wasPressedThisFrame)
-        {
-            ToggleDetail();
-        }
+        // if (Keyboard.current.tabKey.wasPressedThisFrame || Gamepad.current.buttonSouth.wasPressedThisFrame)
+        // {
+        //     ToggleDetail();
+        // }
 
         if (Keyboard.current.tabKey.wasPressedThisFrame && !_isProcessingInput)
         {

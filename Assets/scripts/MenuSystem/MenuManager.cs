@@ -22,6 +22,8 @@ public class MenuManager : MonoBehaviour
 
     public int[] expperlevel = new int[100];
 
+    public string[] playerName = new string[2] { "Osborn", "Evan" };
+
     void Awake()
     {
         if (Instance == null)

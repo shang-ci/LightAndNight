@@ -34,6 +34,14 @@ public class SceneLoader : MonoBehaviour
         {
             hasTriggered = true;
             SceneManager.LoadScene(targetSceneName);
+
+            //找到之前禁用 SampleScene 的 Canvas
+            // Canvas sampleSceneCanvas = FindObjectOfType<Canvas>();
+            // if (sampleSceneCanvas != null)
+            // {
+            //     sampleSceneCanvas.gameObject.SetActive(true);
+            // }
+
             initialPosition = transform.position; // 重置初始位置
         }
     }
