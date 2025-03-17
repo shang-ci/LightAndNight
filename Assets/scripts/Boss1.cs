@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Boss1 : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class Boss1 : MonoBehaviour
     public int[]playerExp= new int[2];
 
     private ExperienceRewardManager experienceRewardManager; // 新增引用
+
+    private float attackInterval = 2.0f; // 自动攻击间隔时间
+    private float nextAttackTime = 0f; // 下次攻击时间
+
     private void Start()
     {
         experienceRewardManager = Object.FindFirstObjectByType<ExperienceRewardManager>(); // 查找 ExperienceRewardManager 脚本实例
@@ -24,13 +29,16 @@ public class Boss1 : MonoBehaviour
         {
             Debug.LogError("ExperienceRewardManager not found in the scene!");
         }
-        
+
+        // 确保 health 和 hp 的初始值正确
+        health = maxHp;
+        hp = maxHp;
+
         if (health <= 0)
         {
             Die();
         }
 
-        hp = 0;
         if (healthBar != null)
         {
             healthBar.maxValue = maxHp;
@@ -44,17 +52,35 @@ public class Boss1 : MonoBehaviour
         if (health <= 0)
         {
             Die();
-
             Debug.Log("已击败boss 可获得经验值");
         }
+
+        // 自动攻击逻辑
+        if (Time.time >= nextAttackTime)
+        {
+            //AutoAttack();
+            nextAttackTime = Time.time + attackInterval;
+        }
     }
+
+    // void AutoAttack()
+    // {
+    //     // 自动攻击逻辑实现
+    //     Debug.Log($"{bossName} 自动攻击！");
+    //     // 在这里添加自动攻击的具体实现，例如对玩家造成伤害
+    // }
 
     //新添加class控制多个角色的经验值获得
 
     void Die()
     {
         isDead = true;
-        int[] playerExp = { 10, 5 };
+        // 从GameManager的bosses数组中移除自己
+        var list = new List<Boss1>(GameManager.Instance.bosses);
+        list.Remove(this);
+        GameManager.Instance.bosses = list.ToArray();
+        Destroy(gameObject, 1f); // 延迟1秒销毁
+        //int[] playerExp = { 10, 5 };
         experienceRewardManager.RewardExperience(playerExp); // 为两个玩家分配经验
 
         Debug.Log("Osborn gain 5 exp.");
@@ -78,7 +104,7 @@ public class Boss1 : MonoBehaviour
 
         // if (hp <= 0)
         // {
-        //     Debug.Log($"{bossName} 被击败！");
+        //     Debug.Log($"{bossName} 被击败！"); 
         // }
     }
 
@@ -92,19 +118,4 @@ public class Boss1 : MonoBehaviour
             //Debug.Log($"{bossName} is dead.");
         }
     }
- 
-
-
-
-    // public void TakeDamage1(int damage)
-    // {
-    //     hp -= damage;
-    //     hp = Mathf.Max(0, hp); // 确保血量不为负数
-    //     Debug.Log($"{bossName} 受到了 {damage} 点伤害，剩余生命值：{hp}");
-
-    //     if (hp <= 0)
-    //     {
-    //         Debug.Log($"{bossName} 被击败了！");
-    //     }
-    // }
 }

@@ -41,11 +41,16 @@ public class MenuController1 : MonoBehaviour
         //     ToggleDetail();
         // }
 
-        if (Keyboard.current.tabKey.wasPressedThisFrame && !_isProcessingInput)
+        // if (Keyboard.current.tabKey.wasPressedThisFrame && !_isProcessingInput)
+        // {
+        //     _isProcessingInput = true;
+        //     ToggleDetail();
+        //     _isProcessingInput = false;
+        // }
+
+        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.JoystickButton2))
         {
-            _isProcessingInput = true;
             ToggleDetail();
-            _isProcessingInput = false;
         }
     }
 

@@ -11,9 +11,11 @@ bosses: 存储Boss的数组。
 isAutoMode: 是否为自动模式的标志。
 _experience: 存储当前经验值的变量。
  */
- 
+
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,9 +24,9 @@ public class GameManager : MonoBehaviour
     public Boss1[] bosses; // Boss 数组
     public bool isAutoMode = false; // 是否为自动模式
 
-    public static GameManager Instance;
+    public static GameManager Instance; // 单例模式实例
 
-    public static GameManager Instance1;
+    public static GameManager Instance1; // 备用单例模式实例
 
     [SerializeField]
     private int _experience; // 序列化字段用于编辑器调试
@@ -32,120 +34,114 @@ public class GameManager : MonoBehaviour
     // 公开属性（实际使用时建议用方法控制）
     public int CurrentExperience => _experience;
 
-    public CardData[] cards1;
-    // private void Start()
-    // {
-    //     InitializeCards();
-    //     if (isAutoMode)
-    //     {
-    //         StartCoroutine(AutoAttack());
-    //     }
-    //     // 打印所有卡牌的名称和伤害值
-    //     foreach (var card in cards1)
-    //     {
-    //         Debug.Log($"卡牌名称: {card.cardName}, 伤害值: {card.damage}");
-    //     }
-    // }
+    [SerializeField] public Button startButton; // 拖拽按钮到Inspector
 
+    public CardData[] cards1;
+
+    // 初始化方法
     void Start()
     {
         Time.timeScale = 1; // 确保时间缩放比例为 1
-        InitializeCards();
-        isAutoMode = true; // 确保自动模式为 true
-        if (isAutoMode)
+        InitializeCards(); // 初始化卡牌
+        // isAutoMode = true; // 确保自动模式为 true
+        // if (isAutoMode)
+        // {
+        //     //Debug.Log("Starting AutoAttack coroutine."); // 添加日志检查
+        //     StartCoroutine(AutoAttack());
+        // }
+        // // 打印所有卡牌的名称和伤害值
+        // foreach (var card in cards1)
+        // {
+        //     Debug.Log($"卡牌名称: {card.cardName}, 伤害值: {card.damage}");
+        // }
+    }
+
+    // 新增方法：由按钮触发自动攻击
+    public void StartAutoAttack()
+    {
+        Debug.Log("[调试] 按钮点击事件触发"); // 检查是否收到点击
+        isAutoMode = true;
+        StartCoroutine(AutoAttack()); // 启动自动攻击协程
+
+        // 可选：禁用按钮防止重复点击
+        // startButton.interactable = false;
+
+        // 禁用按钮
+        if (startButton != null)
         {
-            //Debug.Log("Starting AutoAttack coroutine."); // 添加日志检查
-            StartCoroutine(AutoAttack());
-        }
-        // 打印所有卡牌的名称和伤害值
-        foreach (var card in cards1)
-        {
-            Debug.Log($"卡牌名称: {card.cardName}, 伤害值: {card.damage}");
+            startButton.interactable = false; // 禁用按钮交互
+            startButton.GetComponentInChildren<Text>().text = "战斗中..."; // 修改按钮文本
         }
     }
 
+    // 初始化卡牌方法
     private void InitializeCards()
     {
         for (int i = 0; i < cards.Length; i++)
         {
-            cardUIs[i].Initialize(cards[i]);
+            cardUIs[i].Initialize(cards[i]); // 初始化每张卡牌的UI
         }
     }
 
+    // Awake 方法用于初始化单例模式
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // 跨场景保留
+            //DontDestroyOnLoad(gameObject); // 跨场景保留
         }
         else
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
-        // Ensure Instance1 is set correctly
+        // 确保 Instance1 被正确设置
         if (Instance1 == null)
         {
-            Instance1 = this; // or set it to another instance if needed
+            Instance1 = this; // 或者设置为另一个实例
         }
     }
-
-    // public void AddExperience(int amount)
-    // {
-    //     _experience += amount;
-    //     Debug.Log($"获得经验 {amount}，当前总经验：{_experience}");
-    // }
 
     // 完全重置游戏时调用
     public void ResetProgress()
     {
-        _experience = 0;
+        _experience = 0; // 重置经验值
     }
 
+
+    // 自动攻击协程
     private IEnumerator AutoAttack()
     {
-        Debug.Log("AutoAttack started.");
-        while (true)
+        Debug.Log("[调试] 自动攻击协程启动"); // 检查协程何时启动
+        while (isAutoMode) // 用标志控制循环
         {
-            yield return new WaitForSeconds(2f); // 每 2 秒攻击一次
+            yield return new WaitForSeconds(0.5f); // 每 2 秒执行一次
 
-            // 检查是否所有 Boss 都已死
-            bool allBossesDead = true;
-            foreach (var boss in bosses)
+            // 检查Boss数组有效性
+            if (bosses == null || bosses.Length == 0)
             {
-                if (!boss.isDead)
-                {
-                    allBossesDead = false;
-                    break;
-                }
-            }
-
-            if (allBossesDead)
-            {
-                //Debug.Log("All bosses are dead. Stopping AutoAttack.");
+                Debug.LogWarning("No bosses available"); // 警告没有可用的Boss
                 yield break; // 退出协程
             }
 
-            // 随机选择一张卡牌和一个 Boss
-            CardUI selectedCard = cardUIs[Random.Range(0, cardUIs.Length)];
-            Boss1 selectedBoss = bosses[Random.Range(0, bosses.Length)];
-            //auto attack出牌逻辑在此处改（i.e. 选择伤害最高的牌）
-
-            // 如果选中的 Boss 已死，跳过这次攻击
-            if (selectedBoss.isDead)
+            // 过滤已死亡的Boss
+            var aliveBosses = bosses.Where(b => b != null && !b.isDead).ToArray();
+            if (aliveBosses.Length == 0)
             {
-                continue;
+                Debug.Log("All bosses dead"); // 所有Boss已死亡
+                yield break; // 退出协程
             }
 
-            // 攻击 Boss
+            // 随机选择存活的Boss
+            Boss1 selectedBoss = aliveBosses[Random.Range(0, aliveBosses.Length)];
+
+            // 选择卡牌逻辑（示例随机选择）
+            CardUI selectedCard = cardUIs[Random.Range(0, cardUIs.Length)];
+
+            // 执行攻击
             selectedBoss.TakeDamage1(selectedCard.card.damage);
-            //Debug.Log($"自动使用了 {selectedCard.card.cardName} 对 {selectedBoss.bossName} 造成了 {selectedCard.card.damage} 点伤害。");
-
-            // Debug.Log("gained 10 experiences.");
-
-            // Debug.Log("1f属性 -> 1.2f属性");
+            Debug.Log($"Auto attack: {selectedCard.card.cardName} -> {selectedBoss.bossName}"); // 输出攻击日志
         }
     }
-
 }
