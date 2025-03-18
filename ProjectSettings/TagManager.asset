@@ -2,10 +2,12 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 3
+  serializedVersion: 2
   tags:
   - boss
   - SampleSceneCanvas
+  - SampleSceneCanvas1
+  - SampleSceneCanvas2
   layers:
   - Default
   - TransparentFX
@@ -46,5 +48,3 @@ TagManager:
   - name: card
     uniqueID: 975513207
     locked: 0
-  m_RenderingLayers:
-  - Default

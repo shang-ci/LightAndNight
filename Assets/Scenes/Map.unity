@@ -308,8 +308,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead5454300147e7498ee51191409c6d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerDistance: 100
-  targetSceneName: SampleScene
+  targetScenes:
+  - SampleScene
+  - SampleScene1
+  - SampleScene2
+  triggerDistance: 500
   pixelDistance: 0
   hasTriggered: 0
 --- !u!1 &1332131741
