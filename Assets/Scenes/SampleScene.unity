@@ -3429,8 +3429,8 @@ MonoBehaviour:
   expText1: {fileID: 41798839}
   levelText: {fileID: 1022449052}
   levelText1: {fileID: 1962667081}
-  nameText: {fileID: 0}
-  nameText1: {fileID: 0}
+  nameText: {fileID: 1850733167}
+  nameText1: {fileID: 222727099}
   updateSpeed: 0.5
 --- !u!1 &1033610986
 GameObject:

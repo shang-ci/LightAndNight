@@ -16,6 +16,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -70,7 +71,7 @@ public class GameManager : MonoBehaviour
         if (startButton != null)
         {
             startButton.interactable = false; // 禁用按钮交互
-            startButton.GetComponentInChildren<Text>().text = "战斗中..."; // 修改按钮文本
+            startButton.GetComponentInChildren<TextMeshProUGUI>().text = "battle now..."; // 修改按钮文本
         }
     }
 

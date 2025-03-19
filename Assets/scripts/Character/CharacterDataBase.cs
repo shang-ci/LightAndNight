@@ -35,24 +35,24 @@ public class CharacterDataBase : MonoBehaviour
 
         Debug.Log($"成功加载 {data.Length - 2} 个角色数据"); // 减1排除标题行
 
-        for (int i = 1; i < data.Length; i++)
-        { // 跳过标题行
-            if (!string.IsNullOrEmpty(data[i]))
-            {
-                string[] row = data[i].Split(',');
-                CharacterData charData = new CharacterData
-                {
-                    character = row[0],
-                    sincere = int.Parse(row[7]),
-                    brave = int.Parse(row[8]),
-                    fearless = int.Parse(row[9]),
-                    concentration = int.Parse(row[10]),
-                    faith = int.Parse(row[11]),
-                    happy = int.Parse(row[12])
-                };
-                characters.Add(charData.character, charData);
-            }
-        }
+        // for (int i = 1; i < data.Length; i++)
+        // { // 跳过标题行
+        //     if (!string.IsNullOrEmpty(data[i]))
+        //     {
+        //         string[] row = data[i].Split(',');
+        //         CharacterData charData = new CharacterData
+        //         {
+        //             character = row[0],
+        //             sincere = int.Parse(row[7]),
+        //             brave = int.Parse(row[8]),
+        //             fearless = int.Parse(row[9]),
+        //             concentration = int.Parse(row[10]),
+        //             faith = int.Parse(row[11]),
+        //             happy = int.Parse(row[12])
+        //         };
+        //         characters.Add(charData.character, charData);
+        //     }
+        // }
 
     }
 

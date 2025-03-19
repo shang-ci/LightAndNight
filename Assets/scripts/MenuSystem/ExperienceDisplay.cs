@@ -35,33 +35,64 @@ public class ExperienceDisplay : MonoBehaviour
     private float _updateTimer;
 
     void Update()
+{
+    if (Time.time > _updateTimer)
     {
-        if (Time.time > _updateTimer)
+        if (MenuManager.Instance != null && LevelManager.Instance != null)
         {
-            if (MenuManager.Instance != null && LevelManager.Instance != null)
+            if (MenuManager.Instance.playerExperience.Length > 0 && MenuManager.Instance.playerName.Length > 1)
             {
-                if (MenuManager.Instance.playerExperience.Length > 0 && MenuManager.Instance.playerName.Length > 0)
-                {
-                    expText.text = $"Exp: {MenuManager.Instance.playerExperience[0]}";
-                    expText1.text = $"Exp: {MenuManager.Instance.playerExperience[1]}";
+                expText.text = $"Exp: {MenuManager.Instance.playerExperience[0]}";
+                expText1.text = $"Exp: {MenuManager.Instance.playerExperience[1]}";
 
-                    nameText.text = "Character Name: " + MenuManager.Instance.playerName[0];
-                    nameText1.text = "Character Name: " + MenuManager.Instance.playerName[1];
+                nameText.text = "Character Name: " + MenuManager.Instance.playerName[0];
+                nameText1.text = "Character Name: " + MenuManager.Instance.playerName[1];
 
-                    levelText.text = $"Level: {LevelManager.Instance.player1Level}";
-                    levelText1.text = $"Level: {LevelManager.Instance.player2Level}";
-                }
-                else
-                {
-                    Debug.LogError("Player experience or name arrays are empty.");
-                }
+                levelText.text = $"Level: {LevelManager.Instance.player1Level}";
+                levelText1.text = $"Level: {LevelManager.Instance.player2Level}";
             }
             else
             {
-                Debug.LogError("MenuManager or LevelManager instance is null.");
+                Debug.LogError("Player experience or name arrays are empty or not properly initialized.");
             }
-
-            _updateTimer = Time.time + updateSpeed;
         }
+        else
+        {
+            Debug.LogError("MenuManager or LevelManager instance is null.");
+        }
+
+        _updateTimer = Time.time + updateSpeed;
     }
+}
+
+    // void Update()
+    // {
+    //     if (Time.time > _updateTimer)
+    //     {
+    //         if (MenuManager.Instance != null && LevelManager.Instance != null)
+    //         {
+    //             if (MenuManager.Instance.playerExperience.Length > 0 && MenuManager.Instance.playerName.Length > 0)
+    //             {
+    //                 expText.text = $"Exp: {MenuManager.Instance.playerExperience[0]}";
+    //                 expText1.text = $"Exp: {MenuManager.Instance.playerExperience[1]}";
+
+    //                 nameText.text = "Character Name: " + MenuManager.Instance.playerName[0];
+    //                 nameText1.text = "Character Name: " + MenuManager.Instance.playerName[1];
+
+    //                 levelText.text = $"Level: {LevelManager.Instance.player1Level}";
+    //                 levelText1.text = $"Level: {LevelManager.Instance.player2Level}";
+    //             }
+    //             else
+    //             {
+    //                 Debug.LogError("Player experience or name arrays are empty.");
+    //             }
+    //         }
+    //         else
+    //         {
+    //             Debug.LogError("MenuManager or LevelManager instance is null.");
+    //         }
+
+    //         _updateTimer = Time.time + updateSpeed;
+    //     }
+    // }
 }
