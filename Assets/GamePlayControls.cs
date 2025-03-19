@@ -50,7 +50,7 @@ public partial class @GamePlayControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3e4ea1ba-e7f2-42a1-8f98-f7cca3a3d3f8"",
-                    ""path"": ""<XInputController>/buttonEast"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

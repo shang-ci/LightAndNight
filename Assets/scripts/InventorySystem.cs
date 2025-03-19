@@ -7,7 +7,7 @@ public class InventorySystem : MonoBehaviour
     public GridLayoutGroup inventoryGrid;
     public ItemSlot[] itemSlots;
     
-    public void InitializeInventory(Item[] items)
+    public void InitializeInventory(Item_Data[] items)
     {
         for (int i = 0; i < itemSlots.Length; i++)
         {
@@ -23,9 +23,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     public Image icon;
     public Text countText;
-    public Item item;
+    public Item_Data item;
     
-    public void SetItem(Item newItem)
+    public void SetItem(Item_Data newItem)
     {
         item = newItem;
         icon.sprite = newItem.icon;
@@ -45,7 +45,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     }
 }
 
-public class Item
+public class Item_Data
 {
     public Sprite icon;
     public string name;

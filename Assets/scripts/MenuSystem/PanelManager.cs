@@ -12,6 +12,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] public GameObject cardsPanel;
     [SerializeField] public GameObject skillsPanel;
     [SerializeField] public GameObject inventoryPanel;
+    public GameObject detailPanel;
 
     private void Start()
     {
@@ -64,4 +65,10 @@ public class PanelManager : MonoBehaviour
 
         //Debug.Log($"{targetPanel.name} 状态: {targetPanel.activeSelf}"); // 应该输出 True
     }
+
+    public void ClickOnCloseButton()
+    {
+        detailPanel.SetActive(false);
+    }
+
 }

@@ -17,12 +17,12 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager Instance;
 
-    public int[] playerExperience = new int[100];
-    public int[] playerLevel = new int[100];
+    public int[] playerExperience = new int[5]{0,0,0,0,0};
+    public int[] playerLevel = new int[5]{0,0,0,0,0};
 
-    public int[] expperlevel = new int[100];
+    public int[] expperlevel = new int[5]{5,5,5,5,5};
 
-    public string[] playerName = new string[] { "Osborn", "Evan" };
+    public string[] playerName = new string[5]{"Osborn","Evan","Charlie","Sariel","Jesse"};
 
     void Awake()
     {

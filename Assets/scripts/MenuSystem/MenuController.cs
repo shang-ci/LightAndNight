@@ -74,25 +74,25 @@ public class MenuController : MonoBehaviour
         // int player2Level = levelManager.player2Level;
 
         // 更新经验值显示（仅在菜单打开时更新）
-        if (menuPanel.activeSelf)
-        {
-            expText.text = "Exp: " + MenuManager.Instance.playerExperience[0]; // 使用 Instance
-            expText1.text = "Exp: " + MenuManager.Instance.playerExperience[1]; // 使用 Instance
+        // if (menuPanel.activeSelf)
+        // {
+        //     expText.text = "Exp: " + MenuManager.Instance.playerExperience[0]; // 使用 Instance
+        //     expText1.text = "Exp: " + MenuManager.Instance.playerExperience[1]; // 使用 Instance
 
-            nameText.text = "Character Name: " + MenuManager.Instance.playerName[0]; // 使用 Instance
-            nameText1.text = "Character Name: " + MenuManager.Instance.playerName[1]; // 使用 Instance
+        //     nameText.text = "Character Name: " + MenuManager.Instance.playerName[0]; // 使用 Instance
+        //     nameText1.text = "Character Name: " + MenuManager.Instance.playerName[1]; // 使用 Instance
 
-            levelText.text = "Level: " + LevelManager.Instance.player1Level; // 使用计算出的等级
-            levelText1.text = "Level: " + LevelManager.Instance.player2Level; // 使用计算出的等级
+        //     levelText.text = "Level: " + LevelManager.Instance.player1Level; // 使用计算出的等级
+        //     levelText1.text = "Level: " + LevelManager.Instance.player2Level; // 使用计算出的等级
 
-            // Debug.Log($"已更新level值: {levelText.text}");
-            // Debug.Log($"已更新level值: {levelText1.text}");
-            //数值错误
+        //     // Debug.Log($"已更新level值: {levelText.text}");
+        //     // Debug.Log($"已更新level值: {levelText1.text}");
+        //     //数值错误
 
-            // Debug.Log($"player1的等级(menu controller):{LevelManager.Instance.player1Level}");
-            // Debug.Log($"player2的等级(menu controller):{LevelManager.Instance.player2Level}");
-            //数值错误
-        }
+        //     // Debug.Log($"player1的等级(menu controller):{LevelManager.Instance.player1Level}");
+        //     // Debug.Log($"player2的等级(menu controller):{LevelManager.Instance.player2Level}");
+        //     //数值错误
+        // }
     }
 
     void OnEnable()
@@ -108,6 +108,6 @@ public class MenuController : MonoBehaviour
     public void ToggleMenu()
     {
         menuPanel.SetActive(!menuPanel.activeSelf);
-        //Debug.Log("菜单状态: " + menuPanel.activeSelf);
+        Debug.Log("menu panel状态: " + menuPanel.activeSelf);
     }
 }

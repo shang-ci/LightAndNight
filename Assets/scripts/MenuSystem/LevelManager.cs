@@ -15,8 +15,8 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
-    public int player1Level { get; set; }
-    public int player2Level { get; set; }
+    public int player1Level;
+    public int player2Level;
     private ExperienceRewardManager experienceRewardManager; // 引用经验管理器
 
 void Awake()

@@ -18,19 +18,19 @@ using UnityEngine.UI;
 
 public class ExperienceDisplay : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI expText;
+    [SerializeField] public TextMeshProUGUI expText;
 
-    [SerializeField] private TextMeshProUGUI expText1;
+    [SerializeField] public TextMeshProUGUI expText1;
 
-    [SerializeField] private TextMeshProUGUI levelText;  // 玩家等级显示
+    [SerializeField] public TextMeshProUGUI levelText;  // 玩家等级显示
 
-    [SerializeField] private TextMeshProUGUI levelText1; // 玩家2等级显示
+    [SerializeField] public TextMeshProUGUI levelText1; // 玩家2等级显示
 
-    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] public TextMeshProUGUI nameText;
 
-    [SerializeField] private TextMeshProUGUI nameText1;
+    [SerializeField] public TextMeshProUGUI nameText1;
 
-    [SerializeField] private float updateSpeed = 0.5f;
+    [SerializeField] public float updateSpeed = 0.5f;
 
     private float _updateTimer;
 
@@ -38,15 +38,16 @@ public class ExperienceDisplay : MonoBehaviour
 {
     if (Time.time > _updateTimer)
     {
-        if (MenuManager.Instance != null && LevelManager.Instance != null)
+        if (MenuManager.Instance != null && LevelManager.Instance != null && MenuManager.Instance.playerExperience != null 
+        && MenuManager.Instance.playerExperience.Length > 0 && MenuManager.Instance.playerName != null && MenuManager.Instance.playerName.Length > 0)
         {
             if (MenuManager.Instance.playerExperience.Length > 0 && MenuManager.Instance.playerName.Length > 1)
             {
                 expText.text = $"Exp: {MenuManager.Instance.playerExperience[0]}";
                 expText1.text = $"Exp: {MenuManager.Instance.playerExperience[1]}";
 
-                nameText.text = "Character Name: " + MenuManager.Instance.playerName[0];
-                nameText1.text = "Character Name: " + MenuManager.Instance.playerName[1];
+                nameText.text = "Character Name: " + MenuManager.Instance.playerName[3];
+                nameText1.text = "Character Name: " + MenuManager.Instance.playerName[4];
 
                 levelText.text = $"Level: {LevelManager.Instance.player1Level}";
                 levelText1.text = $"Level: {LevelManager.Instance.player2Level}";

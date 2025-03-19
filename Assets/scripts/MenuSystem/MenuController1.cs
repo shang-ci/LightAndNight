@@ -22,7 +22,7 @@ public class MenuController1 : MonoBehaviour
 
     private GamePlayControls inputActions;
 
-    private bool _isProcessingInput;
+    //private bool _isProcessingInput;
 
     void Awake()
     {
@@ -66,7 +66,8 @@ public class MenuController1 : MonoBehaviour
 
     public void ToggleDetail()
     {
-        detailPanel.SetActive(!detailPanel.activeSelf);
+        detailPanel.SetActive(true);
+        Debug.Log("detail panel状态: " + detailPanel.activeSelf);
     }
 }
 
