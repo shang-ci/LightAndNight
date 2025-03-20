@@ -14,7 +14,7 @@ public class Boss1 : MonoBehaviour
     public int health = 100; // 生命值
     public bool isDead; // 是否死亡
 
-    public int[]playerExp= new int[2];
+    public int[] playerExp = new int[2];
 
     private ExperienceRewardManager experienceRewardManager; // 新增引用
 
@@ -63,15 +63,6 @@ public class Boss1 : MonoBehaviour
         }
     }
 
-    // void AutoAttack()
-    // {
-    //     // 自动攻击逻辑实现
-    //     Debug.Log($"{bossName} 自动攻击！");
-    //     // 在这里添加自动攻击的具体实现，例如对玩家造成伤害
-    // }
-
-    //新添加class控制多个角色的经验值获得
-
     void Die()
     {
         isDead = true;
@@ -80,11 +71,7 @@ public class Boss1 : MonoBehaviour
         list.Remove(this);
         GameManager.Instance.bosses = list.ToArray();
         Destroy(gameObject, 1f); // 延迟1秒销毁
-        //int[] playerExp = { 10, 5 };
         experienceRewardManager.RewardExperience(playerExp); // 为两个玩家分配经验
-
-        Debug.Log("Osborn gain 5 exp.");
-        Debug.Log("Evan gain 10 exp.");
         // 销毁 Boss 对象
         Destroy(gameObject);
     }
@@ -102,10 +89,6 @@ public class Boss1 : MonoBehaviour
 
         Debug.Log($"{bossName} 受到 {damage} 点伤害，剩余血量: {hp}");
 
-        // if (hp <= 0)
-        // {
-        //     Debug.Log($"{bossName} 被击败！"); 
-        // }
     }
 
     public void TakeDamage1(int damage)

@@ -108,6 +108,6 @@ public class MenuController : MonoBehaviour
     public void ToggleMenu()
     {
         menuPanel.SetActive(!menuPanel.activeSelf);
-        Debug.Log("menu panel状态: " + menuPanel.activeSelf);
+        //Debug.Log("menu panel状态: " + menuPanel.activeSelf);
     }
 }

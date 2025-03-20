@@ -46,8 +46,8 @@ public class ExperienceDisplay : MonoBehaviour
                 expText.text = $"Exp: {MenuManager.Instance.playerExperience[0]}";
                 expText1.text = $"Exp: {MenuManager.Instance.playerExperience[1]}";
 
-                nameText.text = "Character Name: " + MenuManager.Instance.playerName[3];
-                nameText1.text = "Character Name: " + MenuManager.Instance.playerName[4];
+                nameText.text = "Character Name: " + MenuManager.Instance.playerName[0];
+                nameText1.text = "Character Name: " + MenuManager.Instance.playerName[1];
 
                 levelText.text = $"Level: {LevelManager.Instance.player1Level}";
                 levelText1.text = $"Level: {LevelManager.Instance.player2Level}";

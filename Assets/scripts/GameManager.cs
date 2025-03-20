@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     public void StartAutoAttack()
     {
-        Debug.Log("[调试] 按钮点击事件触发"); // 检查是否收到点击
+        //Debug.Log("[调试] 按钮点击事件触发"); // 检查是否收到点击
         isAutoMode = true;
 
         // 禁用按钮并修改文本
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator AutoAttack()
     {
-        Debug.Log("[调试] 自动攻击协程启动"); // 检查协程何时启动
+        //Debug.Log("[调试] 自动攻击协程启动"); // 检查协程何时启动
         while (isAutoMode) // 用标志控制循环
         {
             yield return new WaitForSeconds(0.5f); // 每 0.5 秒执行一次

@@ -71,7 +71,7 @@ void Awake()
             if (newLevel > playerLevel)
             {
                 playerLevel = newLevel; // 更新玩家等级
-                Debug.Log($"玩家升级！新的等级: {playerLevel}");
+                //Debug.Log($"玩家升级！新的等级: {playerLevel}");
             }
         }
         else
