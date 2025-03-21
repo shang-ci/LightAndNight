@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9bc0f2fe173c17418b50b91c6b3d09d, type: 3}
-  m_Name: Item_Card
+  m_Name: "\u7D2B\u8272\u706B\u7130"
   m_EditorClassIdentifier: 
-  itemName: "\u84DD\u8272\u706B\u7130"
-  itemID: 1001
-  itemDescription: "\u5BF9\u654C\u4EBA\u9020\u62105\u70B9\u653B\u51FB"
-  itemIcon: {fileID: 1676738175904459931, guid: 2e861dad86c9b774f891829932822552, type: 3}
+  itemName: "\u6DF1\u84DD\u706B\u7130"
+  itemID: 1003
+  itemDescription: "\u5BF9\u654C\u4EBA\u9020\u621010\u70B9\u653B\u51FB"
+  itemIcon: {fileID: 4840735777579599281, guid: e58b7a4922534ca4783d4c00e5db00d7, type: 3}
