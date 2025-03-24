@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
             CardUI selectedCard = cardUIs[Random.Range(0, cardUIs.Length)];
 
             // 执行攻击
-            selectedBoss.TakeDamage1(selectedCard.card.damage);
+            selectedBoss.TakeDamage(selectedCard.card.damage);
             Debug.Log($"Auto attack: {selectedCard.card.cardName} -> {selectedBoss.bossName}"); // 输出攻击日志
         }
 
