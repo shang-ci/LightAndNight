@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Boss : CharacterBaseNew
+public class Boss : CharacterBase
 {
     public EnemyActionDataSO actionDataSO;
 
