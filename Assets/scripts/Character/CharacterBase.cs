@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterBaseNew : MonoBehaviour
+public class CharacterBase : MonoBehaviour
 {
     public int maxHp;
 
