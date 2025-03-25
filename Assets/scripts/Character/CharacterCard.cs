@@ -11,8 +11,8 @@ public class CharacterCard : MonoBehaviour,IPointerEnterHandler,IPointerExitHand
 
     void Start()
     {
-        //statsPanel = UIManager.Instance.statsPanel;
-        //statTexts = UIManager.Instance.statTexts;
+        //statsPanel = UIManager.instance.statsPanel;
+        //statTexts = UIManager.instance.statTexts;
         Debug.Log($"CharacterCard 初始化：{characterName}");
 
         // 检查 characterName 是否为空或未赋值

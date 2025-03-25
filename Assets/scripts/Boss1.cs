@@ -67,9 +67,9 @@
 //     // {
 //     //     isDead = true;
 //     //     // 从GameManager的bosses数组中移除自己
-//     //     var list = new List<Boss1>(GameManager.Instance.bosses);
+//     //     var list = new List<Boss1>(GameManager.instance.bosses);
 //     //     list.Remove(this);
-//     //     GameManager.Instance.bosses = list.ToArray();
+//     //     GameManager.instance.bosses = list.ToArray();
 //     //     Destroy(gameObject, 1f); // 延迟1秒销毁
 //     //     experienceRewardManager.RewardExperience(playerExp); // 为两个玩家分配经验
 //     //     // 销毁 Boss 对象
@@ -84,11 +84,11 @@
 //     Debug.Log("已击败boss，获得经验值");
 
 //     // 从GameManager的bosses数组中移除自己
-//     if (GameManager.Instance != null)
+//     if (GameManager.instance != null)
 //     {
-//         var list = new List<Boss1>(GameManager.Instance.bosses);
+//         var list = new List<Boss1>(GameManager.instance.bosses);
 //         list.Remove(this);
-//         GameManager.Instance.bosses = list.ToArray();
+//         GameManager.instance.bosses = list.ToArray();
 //     }
 
 //     // 分配经验值
@@ -194,11 +194,11 @@ public class Boss1 : MonoBehaviour
         isDead = true;
         
         // 更新GameManager
-        if (GameManager.Instance != null)
+        if (GameManager.instance != null)
         {
-            var list = new List<Boss1>(GameManager.Instance.bosses);
+            var list = new List<Boss1>(GameManager.instance.bosses);
             list.Remove(this);
-            GameManager.Instance.bosses = list.ToArray();
+            GameManager.instance.bosses = list.ToArray();
         }
 
         // 分配经验

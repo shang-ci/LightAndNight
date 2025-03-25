@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class CardInit : MonoBehaviour
 { 
-    public ItemSO itemCard;
+    public Item itemCard;
     public Text des;
     public Image icon;
 
-    public void SetCardDetail(ItemSO item)
+    public void SetCardDetail(Item item)
     {
         itemCard = item;
         des.text = item.itemDescription;

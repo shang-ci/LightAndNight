@@ -1,23 +1,18 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CardDataSO" , menuName = "Card/CardDataSO")]
-public class CardDataSO : ScriptableObject
+public class CardDataSO : Item
 {
-    public string cardName;
-
-    public Sprite cardImage;
-
     public int cost;
-
-    //public CardType cardType;
-
-    public int attackPower;
-
-    [TextArea]
-
-    public string description;
+    public CardType cardType;
 
     //执行的实际效果
     public List<Effect> effects;
+
+    public void Initialize(string name, Sprite image, int cost, CardType type, string description, List<Effect> effects, List<StatusEffect> statusEffects)
+    {
+        
+    }
 }

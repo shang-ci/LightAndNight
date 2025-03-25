@@ -70,18 +70,18 @@ public class ExperienceDisplay : MonoBehaviour
     // {
     //     if (Time.time > _updateTimer)
     //     {
-    //         if (MenuManager.Instance != null && LevelManager.Instance != null)
+    //         if (MenuManager.instance != null && LevelManager.instance != null)
     //         {
-    //             if (MenuManager.Instance.playerExperience.Length > 0 && MenuManager.Instance.playerName.Length > 0)
+    //             if (MenuManager.instance.playerExperience.Length > 0 && MenuManager.instance.playerName.Length > 0)
     //             {
-    //                 expText.text = $"Exp: {MenuManager.Instance.playerExperience[0]}";
-    //                 expText1.text = $"Exp: {MenuManager.Instance.playerExperience[1]}";
+    //                 expText.text = $"Exp: {MenuManager.instance.playerExperience[0]}";
+    //                 expText1.text = $"Exp: {MenuManager.instance.playerExperience[1]}";
 
-    //                 nameText.text = "Character Name: " + MenuManager.Instance.playerName[0];
-    //                 nameText1.text = "Character Name: " + MenuManager.Instance.playerName[1];
+    //                 nameText.text = "Character Name: " + MenuManager.instance.playerName[0];
+    //                 nameText1.text = "Character Name: " + MenuManager.instance.playerName[1];
 
-    //                 levelText.text = $"Level: {LevelManager.Instance.player1Level}";
-    //                 levelText1.text = $"Level: {LevelManager.Instance.player2Level}";
+    //                 levelText.text = $"Level: {LevelManager.instance.player1Level}";
+    //                 levelText1.text = $"Level: {LevelManager.instance.player2Level}";
     //             }
     //             else
     //             {
