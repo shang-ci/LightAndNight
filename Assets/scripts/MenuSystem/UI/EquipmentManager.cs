@@ -35,8 +35,8 @@ public class EquipManager : MonoBehaviour
     {
         equipmentItems.Add(item);
         AddEquipmentItem(item);
-    } 
-    
+    }
+
     public void AddEquipmentItem(ItemSO item)
     {
         Equipment_Item newItem = Instantiate(equipmentItemPrefab, equipmentParent);
@@ -46,7 +46,17 @@ public class EquipManager : MonoBehaviour
 
     public void text()
     {
-        AddEquipmentItem(equipmentItems[0]);
+{
+    if (equipmentItems.Count > 0) // 确保列表中有装备项
+    {
+        int randomIndex = Random.Range(0, equipmentItems.Count); // 随机选择一个索引
+        AddEquipmentItem(equipmentItems[randomIndex]); // 添加随机选择的装备项
+    }
+    else
+    {
+        Debug.LogWarning("equipmentItems 列表为空，无法添加装备项！");
+    }
+}
     }
 
 }
