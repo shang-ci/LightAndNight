@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DetailPanel : MonoBehaviour
 {
-    public List<ItemSO> items_Card;
-    public List<ItemSO> items_Skill;
-    public List<ItemSO> items_Inventory;
+    public List<Item> items_Card;
+    public List<Item> items_Skill;
+    public List<Item> items_Inventory;
 
     public Transform cardInitParent;
     public Transform skillInitParent;

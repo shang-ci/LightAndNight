@@ -1875,9 +1875,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c561cf2b589e34b93f701a52076fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardDataSO: {fileID: 0}
   cardName: card111
   damage: 20
   cardSprite: {fileID: -5069756711443252800, guid: b5493620f9d56f64490ede993112a4a8, type: 3}
+  owner: {fileID: 0}
+  arrowPrefab: {fileID: 0}
+  targets: []
+  target: {fileID: 0}
   id: 
   currentLevel: 1
   currentExp: 0
@@ -2157,6 +2162,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1765c04a9facbc94cb376d3e51a1a2f9, type: 2}
   - {fileID: 11400000, guid: 2bedc0118f131dd4890783ff0b883dd4, type: 2}
   - {fileID: 11400000, guid: 6b0b4c089440fa049bb36dff062bceef, type: 2}
+  allCharacters: []
+  playerCharacters: []
+  enemyCharacters: []
+  randomCharacters: []
 --- !u!4 &652020525
 Transform:
   m_ObjectHideFlags: 0
@@ -2820,9 +2829,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c561cf2b589e34b93f701a52076fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardDataSO: {fileID: 0}
   cardName: card222
   damage: 20
   cardSprite: {fileID: -3360476282835404112, guid: 14171a96e5763eb44a4cc6a56bbe42a6, type: 3}
+  owner: {fileID: 0}
+  arrowPrefab: {fileID: 0}
+  targets: []
+  target: {fileID: 0}
   id: 
   currentLevel: 1
   currentExp: 0
@@ -8156,6 +8170,7 @@ GameObject:
   - component: {fileID: 2101935503}
   - component: {fileID: 2101935505}
   - component: {fileID: 2101935504}
+  - component: {fileID: 2101935506}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -8220,6 +8235,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101935502}
   m_CullTransparentMesh: 1
+--- !u!114 &2101935506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101935502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d191acb8c85b194f869852d35a948cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 0
+  currentHP: 0
+  maxMP: 0
+  currentMP: 0
+  characterName: 
+  cardDatas: []
+  handCards: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

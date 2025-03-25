@@ -49,6 +49,16 @@ public enum EffectTargetType
     Random,//随机一个目标
 }
 
+public enum ItemType
+{
+    EquipmentEffect,
+    CardEffect,
+    CardData,
+    Equipment,
+    CardShop,
+    EquipmentShop,
+}
+
 
 
 public enum StatusEffectTargetType

@@ -2,16 +2,15 @@ using UnityEngine;
 
 public class Player : CharacterBase
 {
-    public IntVariable playerMana;
 
-    public int maxMana;
-
-    public int CurrentMana { get => playerMana.currentValue; set => playerMana.SetValue(value); }
-
-    private void OnEnable()
+    private void Awake()
     {
-        playerMana.maxValue = maxMana;
+        SetPlayer("player1",100);
+    }
 
-        CurrentMana = playerMana.maxValue;  //设置初始法力值
+    public void SetPlayer(string playerName, int maxHP)
+    {
+        this.characterName = playerName;
+        this.maxHP = maxHP;
     }
 }
