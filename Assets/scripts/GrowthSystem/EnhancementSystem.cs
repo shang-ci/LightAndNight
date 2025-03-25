@@ -6,7 +6,7 @@ public class EnhancementSystem : MonoBehaviour
     {
         // 检查条件后执行强化
         card.attributes[attributeIndex] *= 1.1f;
-        //AttributePanel.Instance.UpdateCard(card);
+        //AttributePanel.instance.UpdateCard(card);
         ((AttributePanel)AttributePanel.Instance).UpdateCard(card);
     }
 }

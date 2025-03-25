@@ -39,8 +39,8 @@ public class ExperienceManager : MonoBehaviour
     //     Debug.Assert(levelText2 != null, "levelText2 未分配");
     //     Debug.Assert(nameText1 != null, "nameText1 未分配");
     //     Debug.Assert(nameText2 != null, "nameText2 未分配");
-    //     Debug.Assert(MenuManager.Instance != null, "MenuManager.Instance 未初始化");
-    //     Debug.Assert(LevelManager.Instance != null, "LevelManager.Instance 未初始化");
+    //     Debug.Assert(MenuManager.instance != null, "MenuManager.instance 未初始化");
+    //     Debug.Assert(LevelManager.instance != null, "LevelManager.instance 未初始化");
     // }
 
     // 更新显示（在数据变化时调用）
@@ -63,18 +63,18 @@ public class ExperienceManager : MonoBehaviour
     // {
     //     if (Time.time > updateTimer)
     //     {
-    //         if (MenuManager.Instance != null)
+    //         if (MenuManager.instance != null)
     //         {
-    //             expText1.text = $"Exp: {MenuManager.Instance.playerExperience[0]}";
-    //             expText2.text = $"Exp: {MenuManager.Instance.playerExperience[1]}";
-    //             nameText1.text = "Character Name: " + MenuManager.Instance.playerName[0];
-    //             nameText2.text = "Character Name: " + MenuManager.Instance.playerName[1];
+    //             expText1.text = $"Exp: {MenuManager.instance.playerExperience[0]}";
+    //             expText2.text = $"Exp: {MenuManager.instance.playerExperience[1]}";
+    //             nameText1.text = "Character Name: " + MenuManager.instance.playerName[0];
+    //             nameText2.text = "Character Name: " + MenuManager.instance.playerName[1];
     //         }
 
-    //         if (LevelManager.Instance != null)
+    //         if (LevelManager.instance != null)
     //         {
-    //             levelText1.text = $"Level: {LevelManager.Instance.player1Level}";
-    //             levelText2.text = $"Level: {LevelManager.Instance.player2Level}";
+    //             levelText1.text = $"Level: {LevelManager.instance.player1Level}";
+    //             levelText2.text = $"Level: {LevelManager.instance.player2Level}";
     //         }
 
     //         updateTimer = Time.time + updateSpeed;

@@ -76,21 +76,21 @@ public class MenuController : MonoBehaviour
         // 更新经验值显示（仅在菜单打开时更新）
         // if (menuPanel.activeSelf)
         // {
-        //     expText.text = "Exp: " + MenuManager.Instance.playerExperience[0]; // 使用 Instance
-        //     expText1.text = "Exp: " + MenuManager.Instance.playerExperience[1]; // 使用 Instance
+        //     expText.text = "Exp: " + MenuManager.instance.playerExperience[0]; // 使用 instance
+        //     expText1.text = "Exp: " + MenuManager.instance.playerExperience[1]; // 使用 instance
 
-        //     nameText.text = "Character Name: " + MenuManager.Instance.playerName[0]; // 使用 Instance
-        //     nameText1.text = "Character Name: " + MenuManager.Instance.playerName[1]; // 使用 Instance
+        //     nameText.text = "Character Name: " + MenuManager.instance.playerName[0]; // 使用 instance
+        //     nameText1.text = "Character Name: " + MenuManager.instance.playerName[1]; // 使用 instance
 
-        //     levelText.text = "Level: " + LevelManager.Instance.player1Level; // 使用计算出的等级
-        //     levelText1.text = "Level: " + LevelManager.Instance.player2Level; // 使用计算出的等级
+        //     levelText.text = "Level: " + LevelManager.instance.player1Level; // 使用计算出的等级
+        //     levelText1.text = "Level: " + LevelManager.instance.player2Level; // 使用计算出的等级
 
         //     // Debug.Log($"已更新level值: {levelText.text}");
         //     // Debug.Log($"已更新level值: {levelText1.text}");
         //     //数值错误
 
-        //     // Debug.Log($"player1的等级(menu controller):{LevelManager.Instance.player1Level}");
-        //     // Debug.Log($"player2的等级(menu controller):{LevelManager.Instance.player2Level}");
+        //     // Debug.Log($"player1的等级(menu controller):{LevelManager.instance.player1Level}");
+        //     // Debug.Log($"player2的等级(menu controller):{LevelManager.instance.player2Level}");
         //     //数值错误
         // }
     }
