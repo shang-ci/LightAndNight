@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 public class HealthBarControl : MonoBehaviour
 {
-    public CharacterBase currentCharacter;
+    public CharacterBaseNew currentCharacter;
 
     [Header("Elements")]
 
@@ -34,7 +34,7 @@ public class HealthBarControl : MonoBehaviour
 
     private void Awake()
     {
-        currentCharacter = GetComponent<CharacterBase>();
+        currentCharacter = GetComponent<CharacterBaseNew>();
         if (currentCharacter == null)
         {
             Debug.LogError("currentCharacter is null. Please ensure it is assigned properly.");
