@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterBase : MonoBehaviour
+public class CharacterBaseNew : MonoBehaviour
 {
     public int maxHP;
     public int currentHP;
