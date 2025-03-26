@@ -12,6 +12,13 @@ public class CharacterBase : MonoBehaviour
 
     public List<CardDataSO> cardDatas;
     public List<Card> handCards;
+    public CardLibrarySO library;
+    public PlayerCardManager cardManager;
+
+    private void Awake()
+    {
+        //cardManager = new PlayerCardManager();
+    }
 
     public void TakeDamage(int damage)
     {
