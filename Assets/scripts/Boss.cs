@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Boss : CharacterBase
+public class Boss : CharacterBaseNew
 {
 
 }
