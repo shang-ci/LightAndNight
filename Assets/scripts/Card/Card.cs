@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 
 [System.Serializable]
-public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandler
+public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandler,IPointerEnterHandler, IPointerExitHandler
 {
     [Header("卡牌属性")]
     public CardDataSO cardDataSO; // 卡牌数据
@@ -48,6 +48,28 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
     public int currentExp = 0;
     public float[] attributes = new float[6]; // 六个属性值
 
+
+    public void InitCard(CardDataSO cardData, CharacterBase _owner)
+    {
+        cardDataSO = cardData;
+
+        //使用carddata的副本初始化卡牌的数据——这样不论是第一次抽取这张卡还是怎样都使用
+        cardSprite.sprite = cardData.itemIcon;
+        costText.text = cardData.cost.ToString();
+        descriptionText.text = cardData.itemDescription;
+        typeText.text = cardData.cardType switch
+        {
+            CardType.Attack => "攻击",
+            CardType.Defense => "技能",
+            CardType.Abilities => "能力",
+            _ => throw new System.NotImplementedException(),
+        };
+        cardName.text = cardData.itemName;
+
+        owner = _owner;
+        target = null;
+        targets = null;
+    }
 
     // 经验增长处理
     public void GainExperience(int exp)
@@ -97,6 +119,10 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
     public void OnBeginDrag(PointerEventData eventData)
     {
         //TOOD：能量是否足够释放卡牌
+        if (!isAvailiable)
+        {
+            return;
+        }
         Debug.Log("可以拖拽");
 
         switch (cardDataSO.cardType)
@@ -117,6 +143,11 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
     //单个目标时由自己选，多个目标时由gamemanager选
     public void OnDrag(PointerEventData eventData)
     {
+        if (!isAvailiable)
+        {
+            return;
+        }
+
         if (canMove)//拖拽&&执行目标——随机目标/多个目标
         {
             // 将鼠标屏幕坐标转换为世界坐标——实现卡牌跟随鼠标移动拖拽效果
@@ -182,18 +213,50 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!isAvailiable)
+        {
+            return;
+        }
+
         if (currentArrow != null)
         {
             Destroy(currentArrow);
         }
         if (canExecute)
         {
-            ExecuteCardEffects(owner, target);
+            if(targets != null)
+                ExecuteCardEffects(owner, targets);
+            else
+                ExecuteCardEffects(owner, target);
         }
         else
         {
             //卡牌回归原位
+            ResetCardTransform();
+            isAnimating = false;//拖拽结束后，若是回到原位卡牌仍旧可以上提
         }
+
+        target = null;
+        targets = null;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (isAnimating)
+        {
+            return;
+        }
+        // todo 如果当前是扇形布局的话，可以将 transform.position.y 修改为一个固定值，比如 3.5
+        transform.position = originalPosition + Vector3.up;//这里用新变量保存，防止多次经过卡牌时，transform.position.y 不断增加
+        transform.rotation = Quaternion.identity;
+        GetComponent<SortingGroup>().sortingOrder = 20;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (isAnimating)
+            return;
+        ResetCardTransform();
     }
 
     public void ExecuteCardEffects(CharacterBase from, List<CharacterBase> targets)
@@ -256,6 +319,13 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
     {
         isAvailiable = cardDataSO.cost <= owner.currentMP;
         costText.color = isAvailiable ? Color.green : Color.red;
+    }
+
+    // 重置卡牌位置——鼠标离开时调用
+    public void ResetCardTransform()
+    {
+        transform.SetPositionAndRotation(originalPosition, originalRotation);
+        GetComponent<SortingGroup>().sortingOrder = originalLayerOrder;
     }
 
 }

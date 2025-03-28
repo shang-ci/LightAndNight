@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.Rendering;
-//using DG.Tweening;
+using DG.Tweening;
 
 //为玩家管理卡牌的类
 public class PlayerCardManager
@@ -20,29 +21,31 @@ public class PlayerCardManager
     //手牌
     public List<Card> handCards;
 
-
+    [Header("卡牌布局")]
+    public Vector3 deckPosition;//抽出来的卡牌的位置的初始位置
     public CardLayoutManager layoutManager;//卡牌布局管理器
 
+    public CharacterBase owner; // 卡牌拥有者
+
     //初始化
-    public PlayerCardManager(CardLibrarySO _newGameLibrary)
+    public PlayerCardManager(CardLibrarySO _newGameLibrary, CharacterBase _owner,CardLayoutManager _cardLayoutManager)
     {
         cardDatas = new List<CardDataSO>();
         handCards = new List<Card>();
         newGameLibrary = _newGameLibrary;
+        owner = _owner;
+        layoutManager = _cardLayoutManager;
+
+        // 确保 currentLibrary 已初始化
+        currentLibrary = ScriptableObject.CreateInstance<CardLibrarySO>();
+        currentLibrary.entryList = new List<CardLibraryEntry>();
 
         foreach (var item in newGameLibrary.entryList)
         {
             currentLibrary.entryList.Add(item);
         }
-
-        //foreach (var entry in currentLibrary.entryList)
-        //{
-        //    for (int i = 0; i < entry.amount; i++)
-        //    {
-        //        drawDeck.Add(entry.cardData);
-        //    }
-        //}
     }
+
 
     //初始化，将卡牌库中的卡牌复制到抽牌堆中——每开启一轮战斗时调用——抽牌堆拿到的都是原始卡牌数据
     public void InitializeDeck()
@@ -58,6 +61,46 @@ public class PlayerCardManager
 
         // 洗牌/更新抽牌堆or弃牌堆的数字
         ShuffleDeck();
+    }
+
+
+
+    //抽取卡牌，从抽牌堆中抽取卡牌，放入手牌中——每回合开始时调用
+    public void DrawCard(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            if (drawDeck.Count == 0)
+            {
+                // 抽牌堆为空，从弃牌堆中重新生成
+                foreach (var item in discardDeck)
+                {
+                    drawDeck.Add(item);
+                }
+                ShuffleDeck();
+            }
+
+            // 从抽牌堆中抽一张牌——抽的是卡牌数据，赋值给卡牌预制对象
+            CardDataSO cardData = drawDeck[0];
+            drawDeck.RemoveAt(0);
+
+            // 更新 UI 数字
+            //drawCountEvent.RaiseEvent(drawDeck.Count, this);
+
+            //拿到卡牌预制对象
+            var card = GetCardObject().GetComponent<Card>();
+
+            // 初始化——把卡牌数据赋值给卡牌预制对象
+            card.InitCard(cardData, owner);
+            card.transform.position = deckPosition;
+
+            // 将这张牌添加到手牌中
+            handCards.Add(card);
+            var delay = i * 0.2f;
+
+            // 设置卡牌的位置、旋转角度
+            SetCardLayout(delay);
+        }
     }
 
     /// <summary>
@@ -133,13 +176,15 @@ public class PlayerCardManager
             // 卡牌动画
             currentCard.isAnimating = true;
             //让卡牌从缩放为0的状态变为正常大小，而且是每个新抽出来的卡才放大，因为之前的已经是正常大小了所以只有薪酬出来的卡才放大
-            //currentCard.transform.DOScale(Vector3.one, 0.2f).SetDelay(delay).onComplete = () => {
-            //    //卡牌放大完毕后，将卡牌移动到指定位置，有一个连续发拍的效果
-            //    currentCard.transform.DOMove(cardTransform.pos, 0.5f).onComplete = () => {
-            //        currentCard.isAnimating = false;
-            //    };
-            //    currentCard.transform.DORotateQuaternion(cardTransform.rotation, 0.5f);
-            //};
+            currentCard.transform.DOScale(Vector3.one, 0.2f).SetDelay(delay).onComplete = () =>
+            {
+                //卡牌放大完毕后，将卡牌移动到指定位置，有一个连续发拍的效果
+                currentCard.transform.DOMove(cardTransform.pos, 0.5f).onComplete = () =>
+                {
+                    currentCard.isAnimating = false;
+                };
+                currentCard.transform.DORotateQuaternion(cardTransform.rotation, 0.5f);
+            };
 
             // 设置卡牌排序层级，保证卡牌的显示顺序
             currentCard.GetComponent<SortingGroup>().sortingOrder = i;
@@ -149,5 +194,15 @@ public class PlayerCardManager
     }
 
 
+    /// <summary>
+    /// 抽卡时调用的函数获得卡牌 GameObject——这里的是从对象池中获取卡牌，对象池里有7个卡牌，也就是说最多同时存在7个卡牌在手牌中
+    /// </summary>
+    /// <returns></returns>
+    public GameObject GetCardObject()
+    {
+        var cardObj = PoolTool.instance.GetObjectFromPool();
+        cardObj.transform.localScale = Vector3.zero;//将卡牌缩放为0,有一个放大动画
+        return cardObj;
+    }
 
 }

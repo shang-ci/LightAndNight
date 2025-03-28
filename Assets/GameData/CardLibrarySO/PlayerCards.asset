@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: PlayerCards
   m_EditorClassIdentifier: 
   entryList:
-  - cardData: {fileID: 0}
-    amount: 0
+  - cardData: {fileID: 11400000, guid: 0307eed72b7767540a755baef35240fe, type: 2}
+    amount: 3
+  - cardData: {fileID: 11400000, guid: 7b0e713d324027242a83e4072907ca40, type: 2}
+    amount: 2

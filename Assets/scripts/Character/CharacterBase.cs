@@ -10,8 +10,8 @@ public class CharacterBase : MonoBehaviour
 
     public string characterName;
 
-    public List<CardDataSO> cardDatas;
-    public List<Card> handCards;
+    //public List<CardDataSO> cardDatas;
+    //public List<Card> handCards;
  
 
 

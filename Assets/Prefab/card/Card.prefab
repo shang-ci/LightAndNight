@@ -1548,8 +1548,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.3684777, y: 0.83822197, z: 0.44}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7160123140501156037}
   m_Father: {fileID: 0}
@@ -1564,7 +1564,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 975513207
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_SortAtRoot: 0
 --- !u!61 &2296246780989435308
 BoxCollider2D:
@@ -1624,7 +1624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c561cf2b589e34b93f701a52076fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardDataSO: {fileID: 0}
+  cardDataSO: {fileID: 11400000, guid: 0307eed72b7767540a755baef35240fe, type: 2}
   damage: 0
   cardSprite: {fileID: 7735869091304540860}
   costText: {fileID: 42597082806841284}
@@ -1635,6 +1635,11 @@ MonoBehaviour:
   arrowPrefab: {fileID: 8509057604314284421, guid: 82710b99e4df21c4f8e5b89b506d3055, type: 3}
   targets: []
   target: {fileID: 0}
+  originalPosition: {x: 0, y: 0, z: 0}
+  originalRotation: {x: 0, y: 0, z: 0, w: 0}
+  originalLayerOrder: 0
+  isAnimating: 0
+  isAvailiable: 0
   id: 
   currentLevel: 1
   currentExp: 0
