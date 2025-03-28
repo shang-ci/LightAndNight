@@ -1665,7 +1665,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.08, y: -0.26, z: -10}
+  m_LocalPosition: {x: -0.08, y: -0.52, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1848,8 +1848,8 @@ Transform:
   m_GameObject: {fileID: 537948512}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.13, y: -3.85, z: 0.019298268}
-  m_LocalScale: {x: 1.1941022, y: 0.5249206, z: 1}
+  m_LocalPosition: {x: 0.09, y: -3.81, z: 0.019298268}
+  m_LocalScale: {x: 1.2524937, y: 0.5249206, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1893140500}
@@ -3902,7 +3902,7 @@ Transform:
   m_GameObject: {fileID: 1017973235}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0338, y: -0.0675, z: 0}
+  m_LocalPosition: {x: -0.0338, y: -0.36, z: 0}
   m_LocalScale: {x: 1.6935846, y: 0.45795128, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8635,22 +8635,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card
       objectReference: {fileID: 0}
+    - target: {fileID: 9082819943553927571, guid: 41b320e099ac7324699835e90ceb15f6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7123234072331008432, guid: 41b320e099ac7324699835e90ceb15f6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 4592443642220600062, guid: 41b320e099ac7324699835e90ceb15f6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 1783194844491332304, guid: 41b320e099ac7324699835e90ceb15f6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 3095781030218725762, guid: 41b320e099ac7324699835e90ceb15f6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b320e099ac7324699835e90ceb15f6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

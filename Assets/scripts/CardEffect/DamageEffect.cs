@@ -15,7 +15,10 @@ public class DamageEffect : Effect
 
     public override void Execute(CharacterBase from, List<CharacterBase> targets)
     {
-        
+        foreach (var target in targets) {
+            target.TakeDamage(value);
+            Debug.Log($"{target.characterName}受到了{value}点伤害！");
+        }
     }
 }
 

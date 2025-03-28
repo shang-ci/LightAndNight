@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -40,7 +41,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
     public Quaternion originalRotation;
     public int originalLayerOrder;// 卡牌原始层级
     public bool isAnimating;//是否正在移动中/抽卡的动画中——若是在移动就不能让它有上移效果
-    public bool isAvailiable;//判断player的当前能量是否足够使用这张卡
+    public bool isAvailiable = true;//判断player的当前能量是否足够使用这张卡
 
 
     public string id; // 对应Excel中的卡牌ID
@@ -123,6 +124,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
         {
             return;
         }
+        isAnimating = true;//防止卡牌在拖拽时有上提的动画效果
         Debug.Log("可以拖拽");
 
         switch (cardDataSO.cardType)
@@ -150,6 +152,8 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
 
         if (canMove)//拖拽&&执行目标——随机目标/多个目标
         {
+            
+
             // 将鼠标屏幕坐标转换为世界坐标——实现卡牌跟随鼠标移动拖拽效果
             Vector3 screenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f);
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
@@ -190,13 +194,25 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
                 return;
             }
 
-            if (eventData.pointerEnter.CompareTag("Enemy"))
+            if (eventData.pointerEnter.CompareTag("Enemy") && cardDataSO.effects[0].targetType == EffectTargetType.Target && owner is Player)
             {
                 canExecute = true;
                 target = eventData.pointerEnter.GetComponent<CharacterBase>();
                 return;
             }
-            else if(eventData.pointerEnter.CompareTag("Player"))
+            else if (eventData.pointerEnter.CompareTag("Player") && cardDataSO.effects[0].targetType == EffectTargetType.Self && owner is Player)
+            {
+                canExecute = true;
+                target = eventData.pointerEnter.GetComponent<CharacterBase>();
+                return;
+            }
+            else if (eventData.pointerEnter.CompareTag("Player") && cardDataSO.effects[0].targetType == EffectTargetType.Target && owner is Enemy)
+            {
+                canExecute = true;
+                target = eventData.pointerEnter.GetComponent<CharacterBase>();
+                return;
+            }
+            else if (eventData.pointerEnter.CompareTag("Enemy") && cardDataSO.effects[0].targetType == EffectTargetType.Self && owner is Enemy)
             {
                 canExecute = true;
                 target = eventData.pointerEnter.GetComponent<CharacterBase>();
@@ -208,6 +224,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
                 target = null;
             }
         }
+        ShowAllTargetEffects();
         
     }
 
@@ -228,6 +245,8 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
                 ExecuteCardEffects(owner, targets);
             else
                 ExecuteCardEffects(owner, target);
+
+            Debug.Log("执行卡牌");
         }
         else
         {
@@ -236,28 +255,61 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
             isAnimating = false;//拖拽结束后，若是回到原位卡牌仍旧可以上提
         }
 
+        HideAllTargetEffects();
         target = null;
         targets = null;
     }
 
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isAnimating)
+        if (!isAnimating)
         {
-            return;
+            // todo 如果当前是扇形布局的话，可以将 transform.position.y 修改为一个固定值，比如 3.5
+            transform.position = originalPosition + Vector3.up;//这里用新变量保存，防止多次经过卡牌时，transform.position.y 不断增加
+            transform.rotation = Quaternion.identity;
+            GetComponent<SortingGroup>().sortingOrder = 20;
         }
-        // todo 如果当前是扇形布局的话，可以将 transform.position.y 修改为一个固定值，比如 3.5
-        transform.position = originalPosition + Vector3.up;//这里用新变量保存，防止多次经过卡牌时，transform.position.y 不断增加
-        transform.rotation = Quaternion.identity;
-        GetComponent<SortingGroup>().sortingOrder = 20;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (isAnimating)
-            return;
-        ResetCardTransform();
+        if (!isAnimating)
+            ResetCardTransform();
     }
+
+    // 显示所有可能的攻击目标的特效
+    private void ShowAllTargetEffects()
+    {
+        if (targets != null)
+        {
+            foreach (var target in targets)
+            {
+                target.StartFlashing();
+            }
+        }
+        if (target != null)
+        {
+            target.StartFlashing();
+        }
+    }
+
+    // 隐藏所有可能的攻击目标的特效
+    private void HideAllTargetEffects()
+    {
+        if (targets != null)
+        {
+            foreach (var target in targets)
+            {
+                target.StopFlashing();
+            }
+        }
+        if (target != null)
+        {
+            target.StopFlashing();
+        }
+    }
+
 
     public void ExecuteCardEffects(CharacterBase from, List<CharacterBase> targets)
     {

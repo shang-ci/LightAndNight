@@ -3,31 +3,36 @@ using UnityEngine;
 public class Player : CharacterBase
 {
     public CardLayoutManager layoutManager;//ø®≈∆≤ºæ÷π‹¿Ì∆˜
-    [SerializeField]public PlayerCardManager cardManager;
+    public PlayerCardManager cardManager;
 
     public CardLibrarySO library;//¥Ê∑≈≥ı ºø®≈∆ø‚
 
-    private void Awake()
+    public override void SetCharacterBase(string _name)
     {
+        base.SetCharacterBase(_name);
+        this.maxMP = 100;
+        this.currentMP = 100;
+        this.maxHP = 100;
+        this.currentHP = 100;
+        this.characterName = _name;
+    }
+
+    public override void Awake()
+    {
+        base.Awake();
         cardManager = new PlayerCardManager(library, this, layoutManager);
-        SetPlayer("player1",100);
+        SetCharacterBase("player1");
     }
 
     private void Start()
     {
         cardManager.InitializeDeck();//≥ı ºªØ≥È≈∆∂—
+        //StartFlashing();
     }
 
     [ContextMenu("≤‚ ‘≥È≈∆")]
     public void TestDrawCard()
     {
         cardManager.DrawCard(1);
-    }
-
-
-    public void SetPlayer(string playerName, int maxHP)
-    {
-        this.characterName = playerName;
-        this.maxHP = maxHP;
     }
 }

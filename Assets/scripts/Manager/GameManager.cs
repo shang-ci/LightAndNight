@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        InitializeCharacters(); // 初始化角色
     }
 
     private void Start()
@@ -123,5 +125,14 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("[调试] 自动攻击结束，按钮已恢复");
+    }
+
+    // 初始化角色
+    private void InitializeCharacters()
+    {
+        allCharacters = FindObjectsByType<CharacterBase>(FindObjectsSortMode.None).ToList();
+        playerCharacters = allCharacters.Where(c => c is Player).ToList();
+        enemyCharacters = allCharacters.Where(c => c is Enemy).ToList();
+        randomCharacters = allCharacters.OrderBy(c => Random.value).ToList();
     }
 }
