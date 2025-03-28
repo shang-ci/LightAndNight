@@ -137,7 +137,7 @@ public class PlayerCardManager
         discardDeck.Add(card.cardDataSO);
         handCards.Remove(card);
 
-        //DiscardCard(card.gameObject);//卡牌池回收
+        PoolToolDiscardCard(card.gameObject);//卡牌池回收
 
         // 更新弃牌堆 UI
         //discardCountEvent.RaiseEvent(discardDeck.Count, this);
@@ -158,6 +158,39 @@ public class PlayerCardManager
                 DiscardCard(cardToDiscard);
             }
         }
+    }
+
+    /// <summary>
+    /// 事件监听函数——玩家回合结束
+    /// </summary>
+    public void DisAllHandCardsOnPlayerTurnEnd()
+    {
+        for (int i = 0; i < handCards.Count; i++)
+        {
+            discardDeck.Add(handCards[i].cardDataSO);//把初始数据放入弃牌堆——保持每次抽牌都是用的初始数据
+            PoolToolDiscardCard(handCards[i].gameObject);
+        }
+
+        handCards.Clear();
+        //discardCountEvent.RaiseEvent(discardDeck.Count, this);
+    }
+
+    //回收所有卡牌——当游戏结束时调用——玩家或者怪物死亡时
+    public void ReleaseAllCards()
+    {
+        foreach (var card in handCards)
+        {
+            PoolToolDiscardCard(card.gameObject);
+        }
+
+        handCards.Clear();
+        //InitializeDeck();//在结束时重新初始化卡牌堆，防止下一轮粗线错误——必须要在解锁新卡牌之后再初始化卡牌堆
+    }
+
+    //回收卡牌
+    public void PoolToolDiscardCard(GameObject cardObj)
+    {
+        PoolTool.instance.ReleaseObjectToPool(cardObj);
     }
 
     private void SetCardLayout(float delay)

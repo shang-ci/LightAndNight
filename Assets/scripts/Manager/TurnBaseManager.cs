@@ -1,3 +1,4 @@
+using EventSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,6 +36,22 @@ public class TurnBaseManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.AddListener("PlayerTurnEnd", EnemyTurnBegin);//玩家回合结束，敌人回合开始
+        EventManager.Instance.AddListener<object>("GameOver", StopTurnBaseSystem);//战斗结束，停止回合管理
+        EventManager.Instance.AddListener("NewGame", NewGame);//开始菜单点击新游戏，初始化玩家
+        EventManager.Instance.AddListener("GameStart", GameStart);//进入房间/遇见战斗事件，开启回合管理
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.RemoveListener("PlayerTurnEnd", EnemyTurnBegin);
+        EventManager.Instance.RemoveListener<object>("GameOver", StopTurnBaseSystem);
+        EventManager.Instance.RemoveListener("NewGame", NewGame);
+        EventManager.Instance.RemoveListener("GameStart", GameStart);
     }
 
     private void Update()
@@ -88,6 +105,7 @@ public class TurnBaseManager : MonoBehaviour
     {
         playerTurnCount++;
         playerTurnBegin.RaiseEvent(null, this);
+        EventManager.Instance.TriggerEvent("PlayerTurnBegin");
         //player.UpdateStatusEffectRounds();//更新玩家状态效果回合数
     }
 
@@ -96,7 +114,7 @@ public class TurnBaseManager : MonoBehaviour
     {
         enemyTurnCount++;
         isEnemyTurn = true;
-        enemyTurnBegin.RaiseEvent(null, this);
+        EventManager.Instance.TriggerEvent("EnemyTurnBegin");//敌人回合触发——敌人攻击
         //enemy.UpdateStatusEffectRounds();//更新敌人状态效果回合数
     }
 
@@ -106,6 +124,8 @@ public class TurnBaseManager : MonoBehaviour
         enemyTurnEnd.RaiseEvent(null, this);
         isPlayerTurn = true;
     }
+
+
 
 
 
@@ -119,6 +139,9 @@ public class TurnBaseManager : MonoBehaviour
     //初始化玩家——在点击新游戏时调用，因为玩家自身是隐藏的无法监听到新游戏事件——开启新游戏时
     public void NewGame()
     {
-        //playerObj.GetComponent<Player>().NewGame();
+        foreach(var item in GameManager.instance.playerCharacters)
+        {
+            item.GetComponent<Player>().NewGame();
+        }
     }
 }

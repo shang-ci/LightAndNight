@@ -1,25 +1,30 @@
+using EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterBase : MonoBehaviour
 {
+    [Header("基础属性")]
     public int maxHP;
     public int currentHP;
     public int maxMP;
     public int currentMP;
 
+    [Header("角色信息")]
     public string characterName;
     public int characterID;
 
-    //public List<CardDataSO> cardDatas;
-    //public List<Card> handCards;
+    [Header("角色状态")]
+    public bool isDead = false;
 
+
+    [Header("闪光")]
     [SerializeField]private Coroutine flashCoroutine;
     private SpriteRenderer spriteRenderer;
 
 
-    public virtual void SetCharacterBase(string _name)
+    public virtual void SetCharacterBase(string _name, int _id)
     {
     }
 
@@ -29,7 +34,7 @@ public class CharacterBase : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         if(currentHP < damage)
         {
@@ -75,5 +80,7 @@ public class CharacterBase : MonoBehaviour
     public virtual void Died()
     {
         Debug.Log(this.characterName + "Died");
+        isDead = true;
+        EventManager.Instance.TriggerEvent<CharacterBase>("CharacterDied", this);//触发角色死亡事件
     }
 }
