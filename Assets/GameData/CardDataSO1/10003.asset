@@ -18,6 +18,7 @@ MonoBehaviour:
   itemType: 0
   itemDescription: "\u5BF9\u76EE\u6807\u9020\u6210\u653B\u51FB"
   cost: 1
-  cardType: 2
-  effects: []
+  cardType: 0
+  effects:
+  - {fileID: 11400000, guid: 8dd8f56601aef8740bf7c5e62b237fcf, type: 2}
   statusEffects: []

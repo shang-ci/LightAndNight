@@ -1,4 +1,6 @@
+using EventSystem;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : CharacterBase
@@ -6,10 +8,15 @@ public class Enemy : CharacterBase
     public EnemyActionDataSO actionDataSO;
     public EnemyAction currentAction;
 
+    [Header("卡牌相关")]
     public CardLibrarySO library;//卡牌库
     public EnemyCardManger cardManger;
     public Transform cardParent;//抽出来的卡牌的位置的初始位置
 
+
+    [Header("攻击目标")]
+    public List<CharacterBase> targets;
+    public CharacterBase target;
     protected Player player;
 
 
@@ -26,9 +33,32 @@ public class Enemy : CharacterBase
     {
         base.Awake();
         cardManger = new EnemyCardManger(library, this,cardParent);
+        cardManger.InitializeDeck();
         SetCharacterBase("enemy1", 102);
     }
 
+    private void OnEnable()
+    {
+        EventManager.Instance.AddListener("EnemyTurnBegin", OnEnemyTurnBegin);//敌人回合开始——执行卡牌效果
+        EventManager.Instance.AddListener<object>("EnemyUseCard", cardManger.DiscardCard);//打出卡牌后——弃掉
+        //EventManager.Instance.AddListener("EnemyTurnEnd", cardManger.DisAllHandCardsOnEnemyTurnEnd);//敌人回合结束——弃掉所有手牌——有卡牌自己处理
+        EventManager.Instance.AddListener("PlayerTurnBegin", cardManger.NewTurnDrawCards);//玩家回合开始——抽牌
+        EventManager.Instance.AddListener<int>("EnemyDrawCard", cardManger.DrawCard);//抽牌——卡牌能力
+        //EventManager.Instance.AddListener("GameStart", cardManger.);//战斗开始，加载场景
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.RemoveListener("EnemyTurnBegin", OnEnemyTurnBegin);
+        EventManager.Instance.RemoveListener<object>("EnemyUseCard", cardManger.DiscardCard);
+        //EventManager.Instance.RemoveListener("EnemyTurnEnd", cardManger.DisAllHandCardsOnEnemyTurnEnd);
+        EventManager.Instance.RemoveListener("PlayerTurnBegin", cardManger.NewTurnDrawCards);
+        EventManager.Instance.RemoveListener<int>("EnemyDrawCard", cardManger.DrawCard);
+        //EventManager.Instance.RemoveListener("GameStart", cardManger.);
+    }
+
+
+    #region 意图相关
     //产生意图——从actions里根据触发率选择意图——不过这里只能有一个意图，想实现多个效果，可以在这里加一个数组/制作复合的effect
     public virtual void OnPlayerTurnBegin()
     {
@@ -76,17 +106,41 @@ public class Enemy : CharacterBase
     //执行意图——在敌人回合开始时执行——点击回合转换按钮时敌人回合开始
     public virtual void OnEnemyTurnBegin()
     {
-        switch (currentAction.effect.targetType)
+        foreach(var card in cardManger.handCards)
         {
-            case EffectTargetType.Self:
-                Skill();
-                break;
-            case EffectTargetType.Target:
-                Attack();
-                break;
-            case EffectTargetType.ALL:
-                break;
+            foreach (var effect in card.cardDataSO.effects)//遍历卡牌效果——这样在有多个效果时也能执行
+            {
+                switch(effect.targetType)
+                {
+                    case EffectTargetType.Self:
+                        target = this;
+                        break;
+                    case EffectTargetType.Target:
+                        target = GameManager.instance.playerRandomCharacter;
+                        break;
+                    case EffectTargetType.Our:
+                        targets = GameManager.instance.enemyCharacters;
+                        break;
+                    case EffectTargetType.Enemies:
+                        targets = GameManager.instance.playerCharacters;
+                        break;
+                    case EffectTargetType.ALL:
+                        targets = GameManager.instance.allCharacters;
+                        break;
+                    case EffectTargetType.Random:
+                        target = GameManager.instance.randomCharacter;
+                        break;
+                }
+                if (targets != null)
+                    card.ExecuteCardEffects(this, targets);
+                else if (target != null)
+                    card.ExecuteCardEffects(this, target);
+
+                target = null;
+                targets = null;
+            }
         }
+        cardManger.handCards.Clear();
     }
 
     public virtual void Skill()
@@ -120,6 +174,7 @@ public class Enemy : CharacterBase
             currentAction.effect.Execute(this, this);
         }
     }
+    #endregion
 
     //public override void ExecuteStatusEffects(EffectTiming timing)
     //{

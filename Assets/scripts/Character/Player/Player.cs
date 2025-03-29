@@ -31,9 +31,9 @@ public class Player : CharacterBase
         EventManager.Instance.AddListener("PlayerTurnBegin", newTurn);
         EventManager.Instance.AddListener("PlayerTurnBegin", NewTurnDrawCards);
         EventManager.Instance.AddListener("PlayerTurnEnd", cardManager.DisAllHandCardsOnPlayerTurnEnd);//玩家回合结束，弃掉所有手牌
-        EventManager.Instance.AddListener<object>("DiscardCard", cardManager.DiscardCard);//卡牌打出回收到弃牌堆
+        EventManager.Instance.AddListener<object>("PlayerUseCard", cardManager.DiscardCard);//卡牌打出回收到弃牌堆
         EventManager.Instance.AddListener<int>("DiscardRandomCard", cardManager.DiscardRandomCard);//随机弃牌——卡牌能力
-        EventManager.Instance.AddListener<int>("DrawCard", cardManager.DrawCard);//抽牌——卡牌能力
+        EventManager.Instance.AddListener<int>("PlayerDrawCard", cardManager.DrawCard);//抽牌——卡牌能力
         EventManager.Instance.AddListener("GameOver", cardManager.ReleaseAllCards);//游戏结束，弃掉所有卡牌
         EventManager.Instance.AddListener("GameWin", cardManager.ReleaseAllCards);//游戏胜利，弃掉所有卡牌
     }
@@ -43,9 +43,9 @@ public class Player : CharacterBase
         EventManager.Instance.RemoveListener("PlayerTurnBegin", newTurn);
         EventManager.Instance.RemoveListener("PlayerTurnBegin", NewTurnDrawCards);
         EventManager.Instance.RemoveListener("PlayerTurnEnd", cardManager.DisAllHandCardsOnPlayerTurnEnd);
-        EventManager.Instance.RemoveListener<object>("DiscardCard", cardManager.DiscardCard);
+        EventManager.Instance.RemoveListener<object>("PlayerUseCard", cardManager.DiscardCard);
         EventManager.Instance.RemoveListener<int>("DiscardRandomCard", cardManager.DiscardRandomCard);
-        EventManager.Instance.RemoveListener<int>("DrawCard", cardManager.DrawCard);
+        EventManager.Instance.RemoveListener<int>("PlayerDrawCard", cardManager.DrawCard);
         EventManager.Instance.RemoveListener("GameOver", cardManager.ReleaseAllCards);
         EventManager.Instance.RemoveListener("GameWin", cardManager.ReleaseAllCards);
     }

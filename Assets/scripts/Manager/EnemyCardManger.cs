@@ -32,6 +32,15 @@ public class EnemyCardManger
         }
     }
 
+    /// <summary>
+    /// 事件监听函数——敌人回合开始时调用——抽取1张卡牌
+    /// </summary>
+    public void NewTurnDrawCards()
+    {
+        DrawCard(1);
+    }
+
+
     //抽取卡牌，从抽牌堆中抽取卡牌，放入手牌中——每回合开始时调用
     public void DrawCard(int amount)
     {
@@ -55,12 +64,34 @@ public class EnemyCardManger
         card.transform.SetParent(cardParent);
         card.transform.localPosition = Vector3.zero;
         card.transform.localRotation = Quaternion.identity;
+        card.transform.localScale = Vector3.one;
 
         // 将这张牌添加到手牌中
         handCards.Add(card);
 
         // 打印调试信息
         Debug.Log($"Drew card: {cardData.name}");
+    }
+
+    /// <summary>
+    /// 弃牌逻辑，在打出牌的事件中调用，会接受一个卡牌对象，将其放入弃牌堆中
+    /// </summary>
+    /// <param name="obj"></param>
+    public void DiscardCard(object obj)
+    {
+        Card card = obj as Card;
+        PoolToolDiscardCard(card.gameObject);//卡牌池回收
+
+        // 更新弃牌堆 UI
+        //discardCountEvent.RaiseEvent(discardDeck.Count, this);
+        Debug.Log("敌人弃牌");
+
+    }
+
+    //回收卡牌
+    public void PoolToolDiscardCard(GameObject cardObj)
+    {
+        PoolTool.instance.ReleaseObjectToPool(cardObj);
     }
 
     public GameObject GetCardObject()

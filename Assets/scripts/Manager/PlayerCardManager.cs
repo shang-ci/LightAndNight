@@ -141,6 +141,7 @@ public class PlayerCardManager
 
         // 更新弃牌堆 UI
         //discardCountEvent.RaiseEvent(discardDeck.Count, this);
+        Debug.Log("弃牌堆数量：" + discardDeck.Count);
 
         SetCardLayout(0);
     }
@@ -167,11 +168,14 @@ public class PlayerCardManager
     {
         for (int i = 0; i < handCards.Count; i++)
         {
-            discardDeck.Add(handCards[i].cardDataSO);//把初始数据放入弃牌堆——保持每次抽牌都是用的初始数据
-            PoolToolDiscardCard(handCards[i].gameObject);
+            //discardDeck.Add(handCards[i].cardDataSO);
+            //PoolToolDiscardCard(handCards[i].gameObject);
+            DiscardCard(handCards[i]);
         }
 
         handCards.Clear();
+
+        Debug.Log("玩家回合结束，弃牌堆数量：" + discardDeck.Count);
         //discardCountEvent.RaiseEvent(discardDeck.Count, this);
     }
 

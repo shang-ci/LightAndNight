@@ -30,7 +30,9 @@ public class GameManager : MonoBehaviour
     public List<CharacterBase> allCharacters; //所有角色
     public List<CharacterBase> playerCharacters; //所有玩家角色
     public List<CharacterBase> enemyCharacters; //所有敌人角色
-    public List<CharacterBase> randomCharacters;//随机角色
+    public CharacterBase randomCharacter;//随机角色
+    public CharacterBase playerRandomCharacter;//玩家随机角色
+    public CharacterBase enemyRandomCharacter;//敌人随机角色
 
     private void Awake()
     {
@@ -133,6 +135,8 @@ public class GameManager : MonoBehaviour
         allCharacters = FindObjectsByType<CharacterBase>(FindObjectsSortMode.None).ToList();
         playerCharacters = allCharacters.Where(c => c is Player).ToList();
         enemyCharacters = allCharacters.Where(c => c is Enemy).ToList();
-        randomCharacters = allCharacters.OrderBy(c => Random.value).ToList();
+        randomCharacter = allCharacters[Random.Range(0, allCharacters.Count)];
+        playerRandomCharacter = playerCharacters[Random.Range(0, playerCharacters.Count)];
+        enemyRandomCharacter = enemyCharacters[Random.Range(0, enemyCharacters.Count)];
     }
 }

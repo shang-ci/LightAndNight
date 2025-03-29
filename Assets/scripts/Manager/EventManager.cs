@@ -29,7 +29,17 @@ namespace EventSystem
     {
         #region µ¥ÀıÊµÏÖ
         private static EventManager _instance;
-        public static EventManager Instance => _instance ??= new EventManager();
+        public static EventManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new EventManager();
+                }
+                return _instance;
+            }
+        }
         private readonly Dictionary<string, IEventInfo> _eventDict = new();
         #endregion
 

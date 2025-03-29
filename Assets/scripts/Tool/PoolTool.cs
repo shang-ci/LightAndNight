@@ -33,7 +33,7 @@ public class PoolTool : MonoBehaviour
             maxSize: 20
         );
 
-        PreFillPool(8);
+        PreFillPool(12);
     }
 
     //先创建8个

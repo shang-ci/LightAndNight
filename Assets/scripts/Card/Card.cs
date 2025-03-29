@@ -1,3 +1,4 @@
+using EventSystem;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -29,6 +30,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
     [Header("拖拽执行状态")]
     private bool canMove;//是否可以拖拽，当尝试拖拽时，如果卡牌是攻击类型，就会生成箭头，如果是技能或能力类型，就可以拖拽
     private bool canExecute;//是否可以执行，当拖拽结束时，如果鼠标在敌人上，就可以执行；如果是针对玩家自己的技能或能力，只要超过1f就可以执行，就是说只要拖拽到屏幕上方y轴大于1f就可以执行
+    public bool ownerIsEnemy;//判断是否可以拖拽
 
     [Header("攻击目标")]
     public List<CharacterBase> targets;
@@ -68,6 +70,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
         cardName.text = cardData.itemName;
 
         owner = _owner;
+        ownerIsEnemy = owner is Enemy;
         target = null;
         targets = null;
     }
@@ -120,7 +123,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
     public void OnBeginDrag(PointerEventData eventData)
     {
         //TOOD：能量是否足够释放卡牌
-        if (!isAvailiable)
+        if (!isAvailiable || ownerIsEnemy)
         {
             return;
         }
@@ -145,7 +148,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
     //单个目标时由自己选，多个目标时由gamemanager选
     public void OnDrag(PointerEventData eventData)
     {
-        if (!isAvailiable)
+        if (!isAvailiable || ownerIsEnemy)
         {
             return;
         }
@@ -176,7 +179,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
                             targets = GameManager.instance.playerCharacters;
                             break;
                         case EffectTargetType.Random:
-                            targets = GameManager.instance.randomCharacters;
+                            target = GameManager.instance.randomCharacter;
                             break;
                     }
                 }
@@ -191,6 +194,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
             {
                 canExecute = false;
                 target = null;
+                Debug.Log("单个目标是空");
                 return;
             }
 
@@ -198,24 +202,28 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
             {
                 canExecute = true;
                 target = eventData.pointerEnter.GetComponent<CharacterBase>();
+                Debug.Log("目标是敌人&&玩家打出");
                 return;
             }
             else if (eventData.pointerEnter.CompareTag("Player") && cardDataSO.effects[0].targetType == EffectTargetType.Self && owner is Player)
             {
                 canExecute = true;
                 target = eventData.pointerEnter.GetComponent<CharacterBase>();
+                Debug.Log("目标是玩家&&玩家打出");
                 return;
             }
             else if (eventData.pointerEnter.CompareTag("Player") && cardDataSO.effects[0].targetType == EffectTargetType.Target && owner is Enemy)
             {
                 canExecute = true;
                 target = eventData.pointerEnter.GetComponent<CharacterBase>();
+                Debug.Log("目标是玩家&&敌人打出");
                 return;
             }
             else if (eventData.pointerEnter.CompareTag("Enemy") && cardDataSO.effects[0].targetType == EffectTargetType.Self && owner is Enemy)
             {
                 canExecute = true;
                 target = eventData.pointerEnter.GetComponent<CharacterBase>();
+                Debug.Log("目标是敌人&&敌人打出");
                 return;
             }
             else
@@ -230,7 +238,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!isAvailiable)
+        if (!isAvailiable || ownerIsEnemy)
         {
             return;
         }
@@ -243,7 +251,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
         {
             if(targets != null)
                 ExecuteCardEffects(owner, targets);
-            else
+            else if (target != null)
                 ExecuteCardEffects(owner, target);
 
             Debug.Log("执行卡牌");
@@ -263,7 +271,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!isAnimating)
+        if (!isAnimating || !ownerIsEnemy)
         {
             // todo 如果当前是扇形布局的话，可以将 transform.position.y 修改为一个固定值，比如 3.5
             transform.position = originalPosition + Vector3.up;//这里用新变量保存，防止多次经过卡牌时，transform.position.y 不断增加
@@ -274,7 +282,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!isAnimating)
+        if (!isAnimating || !ownerIsEnemy)
             ResetCardTransform();
     }
 
@@ -314,7 +322,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
     public void ExecuteCardEffects(CharacterBase from, List<CharacterBase> targets)
     {
         // 减少对应能量，通知回收卡牌
-
+        
 
         //防止卡牌的两种效果为空
         if (cardDataSO.effects != null)//拿副本执行效果
@@ -333,11 +341,14 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
         //        target.AddStatusEffect(statusEffect);
         //    }
         //}
+        if(owner is Player)
+            EventManager.Instance.TriggerEvent<object>("PlayerUseCard", this);
+        else if (owner is Enemy)
+            EventManager.Instance.TriggerEvent<object>("EnemyUseCard", this);
     }
 
     public void ExecuteCardEffects(CharacterBase from, CharacterBase target)
     {
-        //TOOD: 减少对应能量，通知回收卡牌
 
 
         //防止卡牌的两种效果为空
@@ -357,6 +368,12 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
         //        target.AddStatusEffect(statusEffect);
         //    }
         //}
+
+        //TOOD: 减少对应能量，通知回收卡牌
+        if (owner is Player)
+            EventManager.Instance.TriggerEvent<object>("PlayerUseCard", this);
+        else if (owner is Enemy)
+            EventManager.Instance.TriggerEvent<object>("EnemyUseCard", this);
     }
 
     public void UpdatePositionRotation(Vector3 position, Quaternion rotation)

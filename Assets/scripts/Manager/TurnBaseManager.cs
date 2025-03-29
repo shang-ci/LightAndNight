@@ -7,8 +7,8 @@ public class TurnBaseManager : MonoBehaviour
 {
     public static TurnBaseManager instance;
 
-    [SerializeField]private bool isPlayerTurn = false;
-    [SerializeField]private bool isEnemyTurn = false;
+    [SerializeField] private bool isPlayerTurn = false;
+    [SerializeField] private bool isEnemyTurn = false;
     public bool battleEnd = true;//战斗是否结束——只有处于战斗时，才会进行回合管理
 
     [Header("阶段管理")]
@@ -41,7 +41,7 @@ public class TurnBaseManager : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.AddListener("PlayerTurnEnd", EnemyTurnBegin);//玩家回合结束，敌人回合开始
-        EventManager.Instance.AddListener<object>("GameOver", StopTurnBaseSystem);//战斗结束，停止回合管理
+        EventManager.Instance.AddListener("GameOver", StopTurnBaseSystem);//战斗结束，停止回合管理
         EventManager.Instance.AddListener("NewGame", NewGame);//开始菜单点击新游戏，初始化玩家
         EventManager.Instance.AddListener("GameStart", GameStart);//进入房间/遇见战斗事件，开启回合管理
     }
@@ -49,7 +49,7 @@ public class TurnBaseManager : MonoBehaviour
     private void OnDisable()
     {
         EventManager.Instance.RemoveListener("PlayerTurnEnd", EnemyTurnBegin);
-        EventManager.Instance.RemoveListener<object>("GameOver", StopTurnBaseSystem);
+        EventManager.Instance.RemoveListener("GameOver", StopTurnBaseSystem);
         EventManager.Instance.RemoveListener("NewGame", NewGame);
         EventManager.Instance.RemoveListener("GameStart", GameStart);
     }
@@ -80,7 +80,6 @@ public class TurnBaseManager : MonoBehaviour
                 timeCounter = 0f;
                 // 玩家回合开始
                 PlayerTurning();
-                isPlayerTurn = false;
             }
         }
     }
@@ -99,14 +98,21 @@ public class TurnBaseManager : MonoBehaviour
         timeCounter = 0;
         playerTurnCount = 0;
         enemyTurnCount = 0;
+
+        EventManager.Instance.TriggerEvent("PlayerTurnBegin");//一开始就是玩家的回合
     }
 
     public void PlayerTurning()
     {
         playerTurnCount++;
-        playerTurnBegin.RaiseEvent(null, this);
-        EventManager.Instance.TriggerEvent("PlayerTurnBegin");
         //player.UpdateStatusEffectRounds();//更新玩家状态效果回合数
+    }
+
+    public void PlayerTurnEnd()
+    {
+        isPlayerTurn = false;
+        EventManager.Instance.TriggerEvent("PlayerTurnEnd");
+        Debug.Log("Player Turn End");
     }
 
     //玩家回合结束调用——当点击回合转换按钮时玩家回合结束
@@ -115,13 +121,16 @@ public class TurnBaseManager : MonoBehaviour
         enemyTurnCount++;
         isEnemyTurn = true;
         EventManager.Instance.TriggerEvent("EnemyTurnBegin");//敌人回合触发——敌人攻击
+
         //enemy.UpdateStatusEffectRounds();//更新敌人状态效果回合数
     }
 
     public void EnemyTurnEnd()
     {
         isEnemyTurn = false;
-        enemyTurnEnd.RaiseEvent(null, this);
+        //enemyTurnEnd.RaiseEvent(null, this);
+        EventManager.Instance.TriggerEvent("EnemyTurnEnd");
+        EventManager.Instance.TriggerEvent("PlayerTurnBegin");//一开始就是玩家的回合
         isPlayerTurn = true;
     }
 
@@ -130,7 +139,7 @@ public class TurnBaseManager : MonoBehaviour
 
 
     //停止对战——当对战去的胜负时调用——gameover、loadma事件——停止回合管理
-    public void StopTurnBaseSystem(object obj)
+    public void StopTurnBaseSystem()
     {
         battleEnd = true;
         //playerObj.SetActive(false);
