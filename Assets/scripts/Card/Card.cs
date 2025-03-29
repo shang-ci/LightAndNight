@@ -344,7 +344,11 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
         if(owner is Player)
             EventManager.Instance.TriggerEvent<object>("PlayerUseCard", this);
         else if (owner is Enemy)
+        {
             EventManager.Instance.TriggerEvent<object>("EnemyUseCard", this);
+            Debug.Log("敌人使用卡牌");
+        }
+
     }
 
     public void ExecuteCardEffects(CharacterBase from, CharacterBase target)
@@ -373,7 +377,10 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
         if (owner is Player)
             EventManager.Instance.TriggerEvent<object>("PlayerUseCard", this);
         else if (owner is Enemy)
+        {
             EventManager.Instance.TriggerEvent<object>("EnemyUseCard", this);
+            Debug.Log("敌人使用卡牌");
+        }
     }
 
     public void UpdatePositionRotation(Vector3 position, Quaternion rotation)

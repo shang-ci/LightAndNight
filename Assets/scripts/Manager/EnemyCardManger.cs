@@ -80,6 +80,11 @@ public class EnemyCardManger
     public void DiscardCard(object obj)
     {
         Card card = obj as Card;
+
+        // 重置卡牌的父对象和大小
+        card.transform.SetParent(PoolTool.instance.transform);
+        card.transform.localScale = Vector3.one;
+
         PoolToolDiscardCard(card.gameObject);//卡牌池回收
 
         // 更新弃牌堆 UI
