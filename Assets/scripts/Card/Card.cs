@@ -29,7 +29,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
 
     [Header("拖拽执行状态")]
     private bool canMove;//是否可以拖拽，当尝试拖拽时，如果卡牌是攻击类型，就会生成箭头，如果是技能或能力类型，就可以拖拽
-    private bool canExecute;//是否可以执行，当拖拽结束时，如果鼠标在敌人上，就可以执行；如果是针对玩家自己的技能或能力，只要超过1f就可以执行，就是说只要拖拽到屏幕上方y轴大于1f就可以执行
+    public bool canExecute;//是否可以执行，当拖拽结束时，如果鼠标在敌人上，就可以执行；如果是针对玩家自己的技能或能力，只要超过1f就可以执行，就是说只要拖拽到屏幕上方y轴大于1f就可以执行
     public bool ownerIsEnemy;//判断是否可以拖拽
 
     [Header("攻击目标")]
@@ -193,7 +193,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
             if (eventData.pointerEnter == null)
             {
                 canExecute = false;
-                target = null;
+                //target = null;
                 Debug.Log("单个目标是空");
                 return;
             }
@@ -203,33 +203,33 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
                 canExecute = true;
                 target = eventData.pointerEnter.GetComponent<CharacterBase>();
                 Debug.Log("目标是敌人&&玩家打出");
-                return;
+                
             }
             else if (eventData.pointerEnter.CompareTag("Player") && cardDataSO.effects[0].targetType == EffectTargetType.Self && owner is Player)
             {
                 canExecute = true;
                 target = eventData.pointerEnter.GetComponent<CharacterBase>();
                 Debug.Log("目标是玩家&&玩家打出");
-                return;
+                
             }
             else if (eventData.pointerEnter.CompareTag("Player") && cardDataSO.effects[0].targetType == EffectTargetType.Target && owner is Enemy)
             {
                 canExecute = true;
                 target = eventData.pointerEnter.GetComponent<CharacterBase>();
                 Debug.Log("目标是玩家&&敌人打出");
-                return;
+                
             }
             else if (eventData.pointerEnter.CompareTag("Enemy") && cardDataSO.effects[0].targetType == EffectTargetType.Self && owner is Enemy)
             {
                 canExecute = true;
                 target = eventData.pointerEnter.GetComponent<CharacterBase>();
                 Debug.Log("目标是敌人&&敌人打出");
-                return;
+                
             }
             else
             {
                 canExecute = false;
-                target = null;
+                //target = null;
             }
         }
         ShowAllTargetEffects();
@@ -262,6 +262,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
             ResetCardTransform();
             isAnimating = false;//拖拽结束后，若是回到原位卡牌仍旧可以上提
         }
+        Debug.Log("拖拽结束");
 
         HideAllTargetEffects();
         target = null;
@@ -271,7 +272,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!isAnimating || !ownerIsEnemy)
+        if (!isAnimating && !ownerIsEnemy)
         {
             // todo 如果当前是扇形布局的话，可以将 transform.position.y 修改为一个固定值，比如 3.5
             transform.position = originalPosition + Vector3.up;//这里用新变量保存，防止多次经过卡牌时，transform.position.y 不断增加
@@ -282,12 +283,12 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!isAnimating || !ownerIsEnemy)
+        if (!isAnimating && !ownerIsEnemy)
             ResetCardTransform();
     }
 
     // 显示所有可能的攻击目标的特效
-    private void ShowAllTargetEffects()
+    public void ShowAllTargetEffects()
     {
         if (targets != null)
         {
@@ -303,7 +304,7 @@ public class Card : MonoBehaviour,IDragHandler, IBeginDragHandler, IEndDragHandl
     }
 
     // 隐藏所有可能的攻击目标的特效
-    private void HideAllTargetEffects()
+    public void HideAllTargetEffects()
     {
         if (targets != null)
         {

@@ -113,34 +113,45 @@ public class Enemy : CharacterBase
                 switch(effect.targetType)
                 {
                     case EffectTargetType.Self:
-                        target = this;
+                        card.target = this;
                         break;
                     case EffectTargetType.Target:
-                        target = GameManager.instance.playerRandomCharacter;
+                        card.target = GameManager.instance.playerRandomCharacter;
                         break;
                     case EffectTargetType.Our:
-                        targets = GameManager.instance.enemyCharacters;
+                        card.targets = GameManager.instance.enemyCharacters;
                         break;
                     case EffectTargetType.Enemies:
-                        targets = GameManager.instance.playerCharacters;
+                        card.targets = GameManager.instance.playerCharacters;
                         break;
                     case EffectTargetType.ALL:
-                        targets = GameManager.instance.allCharacters;
+                        card.targets = GameManager.instance.allCharacters;
                         break;
                     case EffectTargetType.Random:
-                        target = GameManager.instance.randomCharacter;
+                        card.target = GameManager.instance.randomCharacter;
                         break;
                 }
-                if (targets != null)
-                    card.ExecuteCardEffects(this, targets);
-                else if (target != null)
-                    card.ExecuteCardEffects(this, target);
 
-                target = null;
-                targets = null;
+                if (card.targets != null)
+                    card.ExecuteCardEffects(this, card.targets);
+                else if (card.target != null)
+                    card.ExecuteCardEffects(this, card.target);
+
+                card.ShowAllTargetEffects();
             }
+
+            // 启动协程，延迟执行 HideAllTargetEffects 方法
+            StartCoroutine(DelayedHideAllTargetEffects(card, 0.5f)); // 2.0f 表示延迟2秒
         }
         cardManger.handCards.Clear();
+    }
+
+    private IEnumerator DelayedHideAllTargetEffects(Card card, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        card.HideAllTargetEffects();
+        card.target = null;
+        card.targets = null;
     }
 
     public virtual void Skill()
