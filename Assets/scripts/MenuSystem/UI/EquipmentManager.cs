@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//要是需要仿照崩坏，那每个角色都有一个装备栏，装备栏里有多个装备项，同理每个角色也有自己的卡牌管理器，卡牌库来管理
 public class EquipManager : MonoBehaviour
 {
     public static EquipManager instance;

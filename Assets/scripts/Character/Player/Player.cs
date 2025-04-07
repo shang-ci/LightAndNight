@@ -1,29 +1,30 @@
 using EventSystem;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Player : CharacterBase
+public class Player : CharacterBase,IPointerClickHandler
 {
     public CardLayoutManager layoutManager;//卡牌布局管理器
     public PlayerCardManager cardManager;
-
+    public EquipManager equipManager;//装备管理器
     public CardLibrarySO library;//存放初始卡牌库
 
-    public override void SetCharacterBase(string _name,int _id)
+    public override void SetCharacterBase(PlayerData _playerData)
     {
-        base.SetCharacterBase(_name, _id);
         this.maxMP = 100;
         this.currentMP = 100;
         this.maxHP = 100;
         this.currentHP = 100;
-        this.characterName = _name;
-        this.characterID = _id;
+        this.characterName = _playerData.playerName;
+        this.characterID = _playerData.playerId;
+        this.library = _playerData.library;
     }
 
     public override void Awake()
     {
         base.Awake();
         cardManager = new PlayerCardManager(library, this, layoutManager);
-        SetCharacterBase("player1", 101);
+        //SetCharacterBase("player1", 101);
     }
 
     private void OnEnable()
@@ -97,5 +98,10 @@ public class Player : CharacterBase
         {
             currentMP = 0;
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        PlayerManager.instance.ChangeCurrentPlayer(this);
     }
 }

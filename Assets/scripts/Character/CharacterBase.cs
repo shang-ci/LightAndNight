@@ -28,6 +28,14 @@ public class CharacterBase : MonoBehaviour
     {
     }
 
+    public virtual void SetCharacterBase(string _name, int _id, CardLibrarySO _library)
+    {
+    }
+
+    public virtual void SetCharacterBase(PlayerData _playerData)
+    {
+    }
+
     public virtual void Awake()
     {
         //cardManager = new PlayerCardManager();
