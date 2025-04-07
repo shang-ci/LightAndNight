@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e0aaf2ff29dd44abce8855519a2f20, type: 3}
   m_Name: Player3
   m_EditorClassIdentifier: 
-  entryList: []
+  entryList:
+  - cardData: {fileID: 11400000, guid: 0c6af775252059d44bca03558adf0e59, type: 2}
+    amount: 4
