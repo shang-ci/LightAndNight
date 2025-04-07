@@ -1,8 +1,9 @@
+using EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public partial class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;//单例模式——玩家管理器的单例
     public List<Player> PlayerList;//玩家列表——出场列表
@@ -27,9 +28,20 @@ public class PlayerManager : MonoBehaviour
         InitPlayers();
     }
 
+    private void OnEnable()
+    {
+        EventManager.Instance.AddListener("PlayerTurnBegin", HidingAllPlayerCards);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.RemoveListener("PlayerTurnBegin", HidingAllPlayerCards);
+    }
+
+
     private void Update()
     {
-        
+
     }
 
     public void InitPlayers()
@@ -38,11 +50,11 @@ public class PlayerManager : MonoBehaviour
         foreach (Player player in PlayerList)
         {
             player.SetCharacterBase(PlayerDataList[i]);
-            player.gameObject.SetActive(false);
+            //player.gameObject.SetActive(false);
             i++;
         }
         currentPlayer = PlayerList[0];
-        currentPlayer.gameObject.SetActive(true);
+        //currentPlayer.gameObject.SetActive(true);
     }
 
     public void SetPlayerData()
@@ -57,15 +69,30 @@ public class PlayerManager : MonoBehaviour
 
     public void ChangeCurrentPlayer(Player _player)
     {
-        currentPlayer.gameObject.SetActive(false);
+        if (currentPlayer != null)
+        {
+            foreach (var card in currentPlayer.cardManager.handCards)
+            {
+                card.gameObject.SetActive(false);
+            }
+        }
+        //currentPlayer.gameObject.SetActive(false);
         currentPlayer = _player;
-        currentPlayer.gameObject.SetActive(true);
+        foreach (var card in currentPlayer.cardManager.handCards)
+        {
+            card.gameObject.SetActive(true);
+        }
+        //currentPlayer.gameObject.SetActive(true);
     }
-}
 
-public struct PlayerData
-{
-    public CardLibrarySO library;
-    public string playerName;
-    public int playerId;
+    public void HidingAllPlayerCards()
+    {
+        foreach (var player in PlayerList)
+        {
+            foreach (var card in player.cardManager.handCards)
+            {
+                card.gameObject.SetActive(false);
+            }
+        }
+    }
 }

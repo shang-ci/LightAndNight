@@ -1,6 +1,7 @@
 using EventSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static PlayerManager;
 
 public class Player : CharacterBase,IPointerClickHandler
 {

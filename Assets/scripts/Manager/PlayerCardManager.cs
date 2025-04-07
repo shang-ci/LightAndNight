@@ -253,4 +253,21 @@ public class PlayerCardManager
         return cardObj;
     }
 
+    public void ClearHandCards()
+    {
+        foreach (var card in handCards)
+        {
+            PoolToolDiscardCard(card.gameObject);
+        }
+        handCards.Clear();
+    }
+
+    public void DisplayHandCards()
+    {
+        foreach (var card in handCards)
+        {
+            card.gameObject.SetActive(true);
+        }
+    }
+
 }
