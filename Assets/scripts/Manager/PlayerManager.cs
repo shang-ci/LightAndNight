@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-100)]
 public partial class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;//单例模式——玩家管理器的单例
@@ -30,12 +31,10 @@ public partial class PlayerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.Instance.AddListener("PlayerTurnBegin", HidingAllPlayerCards);
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.RemoveListener("PlayerTurnBegin", HidingAllPlayerCards);
     }
 
 
@@ -54,7 +53,6 @@ public partial class PlayerManager : MonoBehaviour
             i++;
         }
         currentPlayer = PlayerList[0];
-        //currentPlayer.gameObject.SetActive(true);
     }
 
     public void SetPlayerData()
@@ -71,18 +69,10 @@ public partial class PlayerManager : MonoBehaviour
     {
         if (currentPlayer != null)
         {
-            foreach (var card in currentPlayer.cardManager.handCards)
-            {
-                card.gameObject.SetActive(false);
-            }
+            currentPlayer.cardManager.HideHandCards();
         }
-        //currentPlayer.gameObject.SetActive(false);
         currentPlayer = _player;
-        foreach (var card in currentPlayer.cardManager.handCards)
-        {
-            card.gameObject.SetActive(true);
-        }
-        //currentPlayer.gameObject.SetActive(true);
+        currentPlayer.cardManager.DisplayHandCards();
     }
 
     public void HidingAllPlayerCards()

@@ -39,7 +39,6 @@ public class CharacterBase : MonoBehaviour
 
     public virtual void Awake()
     {
-        //cardManager = new PlayerCardManager();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 

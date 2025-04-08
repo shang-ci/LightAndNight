@@ -25,8 +25,9 @@ public class Player : CharacterBase,IPointerClickHandler
     {
         base.Awake();
         cardManager = new PlayerCardManager(library, this, layoutManager);
-        //SetCharacterBase("player1", 101);
+        cardManager.InitializeDeck();//≥ı ºªØ≥È≈∆∂—
     }
+
 
     private void OnEnable()
     {
@@ -54,7 +55,7 @@ public class Player : CharacterBase,IPointerClickHandler
 
     private void Start()
     {
-        cardManager.InitializeDeck();//≥ı ºªØ≥È≈∆∂—
+
     }
 
     public override void TakeDamage(int damage)
@@ -75,6 +76,14 @@ public class Player : CharacterBase,IPointerClickHandler
     public void NewTurnDrawCards()
     {
         cardManager.DrawCard(4);
+        if (this == PlayerManager.instance.currentPlayer)
+        {
+            PlayerManager.instance.currentPlayer.cardManager.DisplayHandCards();
+        }
+        else
+        {
+           this.cardManager.HideHandCards();
+        }
     }
 
 

@@ -154,7 +154,7 @@ public class PlayerCardManager
 
         // 更新弃牌堆 UI
         //discardCountEvent.RaiseEvent(discardDeck.Count, this);
-        Debug.Log("玩家弃牌堆数量：" + discardDeck.Count);
+        Debug.Log($"{owner.name}弃牌堆数量：" + discardDeck.Count);
 
         SetCardLayout(0);
     }
@@ -186,7 +186,7 @@ public class PlayerCardManager
         }
 
         handCards.Clear();
-        Debug.Log("玩家回合结束，弃牌堆数量：" + discardDeck.Count);
+        Debug.Log($"{owner.name}回合结束，弃牌堆数量：" + discardDeck.Count);
         //discardCountEvent.RaiseEvent(discardDeck.Count, this);
     }
 
@@ -262,12 +262,23 @@ public class PlayerCardManager
         handCards.Clear();
     }
 
+    #region 卡牌显示
     public void DisplayHandCards()
     {
         foreach (var card in handCards)
         {
             card.gameObject.SetActive(true);
+            card.GetComponent<Collider2D>().enabled = true; // 启用卡牌的碰撞体
         }
     }
 
+    public void HideHandCards()
+    {
+        foreach (var card in handCards)
+        {
+            card.gameObject.SetActive(false);
+            card.GetComponent<Collider2D>().enabled = false; // 禁用卡牌的碰撞体
+        }
+    }
+    #endregion
 }
